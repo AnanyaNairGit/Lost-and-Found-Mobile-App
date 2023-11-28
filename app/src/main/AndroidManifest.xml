@@ -13,8 +13,9 @@
         android:theme="@style/Theme.Mafqodati"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
-            android:exported="true">
+            android:name=".Registration"
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +23,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StartActivity"
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
 
-
+        </activity>
+        <activity
+            android:name=".StartActivity"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="296dp"
+        android:drawableStart="@drawable/ic_lock"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="example@example.com"
@@ -45,8 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:drawableStart="@drawable/ic_lock"
         android:hint="example@example.com"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/editTextText"
         app:layout_constraintStart_toStartOf="@+id/editTextText"
         app:layout_constraintTop_toBottomOf="@+id/editTextText" />
@@ -78,6 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
         android:text="register now"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
