@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_margin="8dp"
+    android:background="@drawable/post_item_bg"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgPostMain"
+                android:layout_width="124dp"
+                android:layout_height="124dp"
+                app:riv_corner_radius="16dp"
+                app:riv_border_color="@color/primary_dark"
+                app:riv_border_width="2dp"
+                android:src="@drawable/dummy_img"
+                android:scaleType="centerCrop"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="8dp">
+                <TextView
+                    android:id="@+id/txtPostTitle"
+                    style="@style/TextParagraphStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I lost My iphone"/>
+                <TextView
+                    android:id="@+id/txtPostContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="it is a good iphone I lost it when i was in the public transport, if anybody something about it please call mee "/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:weightSum="3">
+            <TextView
+                android:id="@+id/txtCreationDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="12-12-2022"
+                android:textAlignment="center"
+                android:background="@drawable/text_tag_bg"
+                android:paddingVertical="4dp"
+                android:layout_marginHorizontal="4dp"
+
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/txtCity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="New york"
+                android:textAlignment="center"
+                android:background="@drawable/text_tag_bg"
+                android:paddingVertical="4dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/txtPostType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Lost"
+                android:textAlignment="center"
+                android:background="@drawable/text_tag_bg"
+                android:paddingVertical="4dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

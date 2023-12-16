@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "796469714602",
+    "project_id": "mafqodati1",
+    "storage_bucket": "mafqodati1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796469714602:android:a2319fd7788776746f3ad3",
+        "android_client_info": {
+          "package_name": "com.example.mafqodati"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEd6RbZsAYuBQxyD9nTLsRqVtL-j8VHZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
