@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.mafqodati.R;
 import com.example.mafqodati.adapters.CategoryAdapter;
-import com.example.mafqodati.adapters.RecyclerLatestPostAdapter;
+import com.example.mafqodati.adapters.RecyclerPostAdapter;
 import com.example.mafqodati.models.Category;
 import com.example.mafqodati.models.Post;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -23,7 +23,7 @@ public class MainFragment extends Fragment {
 
     private RecyclerView recyclerCategory, recyclerLatestPost;
     private CategoryAdapter categoryAdapter;
-    private RecyclerLatestPostAdapter recyclerLatestPostAdapter;
+    private RecyclerPostAdapter recyclerPostAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -41,7 +41,7 @@ public class MainFragment extends Fragment {
                 .setQuery(db.collection("post"), Post.class)
                 .build();
         categoryAdapter = new CategoryAdapter(categoryOptions);
-        recyclerLatestPostAdapter = new RecyclerLatestPostAdapter(postOptions);
+        recyclerPostAdapter = new RecyclerPostAdapter(postOptions);
 
 
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -49,7 +49,7 @@ public class MainFragment extends Fragment {
         recyclerLatestPost.setLayoutManager(new LinearLayoutManager(getContext()));
 
         recyclerCategory.setAdapter(categoryAdapter);
-        recyclerLatestPost.setAdapter(recyclerLatestPostAdapter);
+        recyclerLatestPost.setAdapter(recyclerPostAdapter);
 
         return view;
     }
@@ -58,14 +58,14 @@ public class MainFragment extends Fragment {
     public void onStart() {
         super.onStart();
         categoryAdapter.startListening();
-        recyclerLatestPostAdapter.startListening();
+        recyclerPostAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         categoryAdapter.stopListening();
-        recyclerLatestPostAdapter.stopListening();
+        recyclerPostAdapter.stopListening();
     }
 
 }

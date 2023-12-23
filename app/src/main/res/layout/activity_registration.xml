@@ -5,13 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Registration">
+    tools:context=".RegistrationActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/include_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
     <include
         android:id="@+id/include1"
@@ -26,111 +22,148 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:cardCornerRadius="15dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/include1">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Create an account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/TextParagraphStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Create your account with few steps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            style="@style/TextParagraphStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your name" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="8dp"
-            >
-
-            <TextView
-                android:id="@+id/textView3"
-                style="@style/TextTitleStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create an account"
-                android:layout_gravity="start"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/TextParagraphStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create your account with few steps"
-                android:layout_gravity="start"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
-                android:weightSum="2">
-
-                <EditText
-                    style="@style/EditTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:layout_weight="1"
-                    android:hint="First name" />
-
-                <EditText
-                    style="@style/EditTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:layout_weight="1"
-                    android:hint="Last name" />
-
-            </LinearLayout>
-            <EditText
-                style="@style/EditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="8dp"
-                android:hint="email" />
-            <EditText
-                style="@style/EditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="8dp"
-                android:hint="Password" />
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <EditText
+                android:id="@+id/etFirstName"
                 style="@style/EditTextStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="8dp"
-                android:hint="Confirm Password" />
+                android:layout_weight="1"
+                android:hint="First name" />
 
             <EditText
+                android:id="@+id/etLastName"
                 style="@style/EditTextStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="8dp"
-                android:hint="Phone number" />
+                android:layout_weight="1"
+                android:hint="Last name" />
 
-            <Button
-                android:id="@+id/btnLogin"
-                style="@style/PrimaryButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:paddingVertical="16dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginHorizontal="2dp"
-                android:textSize="20sp"
-                android:text="Register"
-                app:layout_constraintEnd_toEndOf="@+id/etPassword"
-                app:layout_constraintStart_toStartOf="@+id/etPassword"
-                app:layout_constraintTop_toBottomOf="@+id/etPassword" />
         </LinearLayout>
+
+        <TextView
+            style="@style/TextParagraphStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Your Email" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="email" />
+
+        <TextView
+            style="@style/TextParagraphStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Your Strong Password :" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password" />
+
+        <TextView
+            style="@style/TextParagraphStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Confirm Your Password :" />
+
+        <EditText
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password" />
+
+        <TextView
+            style="@style/TextParagraphStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Phone Number :" />
+
+        <EditText
+            android:id="@+id/etPhone"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:hint="Phone number" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="toPickNewImage"
+            android:paddingVertical="8dp"
+            android:text="Register"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/etPassword"
+            app:layout_constraintStart_toStartOf="@+id/etPassword"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+    </LinearLayout>
+
+</ScrollView>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

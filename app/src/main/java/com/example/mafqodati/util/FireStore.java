@@ -16,16 +16,16 @@ import java.util.Arrays;
 import java.util.Date;
 
 
-public class Firestore {
+public class FireStore {
     public static FirebaseFirestore getFirestoreInstance() {
         return FirebaseFirestore.getInstance();
     }
 
 
-    public static Task<Void> writeNewUser(String userId, String userEmail, String userNickName, String fcmToken) {
-        User newUser = new User(userEmail, userNickName, null, new Timestamp(new Date()), fcmToken);
-        return getFirestoreInstance().collection("user").document(userId).set(newUser);
-    }
+//    public static Task<Void> writeNewUser(String userId, String userEmail, String userNickName, String fcmToken) {
+//        User newUser = new User(userEmail, userNickName, null, System.currentTimeMillis() ,fcmToken);
+//        return getFirestoreInstance().collection("user").document(userId).set(newUser);
+//    }
 
 
     public static Task<DocumentReference> writeNewPost(Post newPost) {
@@ -34,6 +34,9 @@ public class Firestore {
 
     public static Task<Void> updatePost(String postId, Post post) {
         return getFirestoreInstance().collection("post").document(postId).set(post);
+    }
+    public static DocumentReference postRef(String postId){
+        return getFirestoreInstance().collection("post").document(postId);
     }
 
     public static Task<Void> removeUser(String userId) {
@@ -74,6 +77,7 @@ public class Firestore {
             return getFirestoreInstance().collection("post").whereEqualTo("writerId", userId)
                     .orderBy("writeTime", Query.Direction.DESCENDING).limit(20).get();
     }
+
 
     public static Task<DocumentSnapshot> getPostDataFromId(String docId) {
         return getFirestoreInstance().collection("post").document(docId).get();

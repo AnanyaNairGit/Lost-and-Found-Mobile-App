@@ -1,5 +1,19 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">mafqodati</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mapbox_access_token" translatable="false" tools:ignore="UnusedResources">sk.eyJ1IjoiemV5YWRraCIsImEiOiJjbHFncmp2MjUwZDNzMmpvMHFobzFyN2M3In0.Cpw0s7GBrLHMrXg91Ia5xw</string>
+    <string-array name="jordan_municipalities">
+        <item>Amman</item>
+        <item>Irbid</item>
+        <item>Zarqa</item>
+        <item>Jerash</item>
+        <item>Ajloun</item>
+        <item>Mafraq</item>
+        <item>Madaba</item>
+        <item>Karak</item>
+        <item>Tafilah</item>
+        <item>Maan</item>
+        <item>Aqaba</item>
+    </string-array>
 </resources>

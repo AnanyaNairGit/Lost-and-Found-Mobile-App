@@ -15,12 +15,17 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mafqodati.R;
 import com.example.mafqodati.models.Post;
+import com.example.mafqodati.util.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-public class RecyclerLatestPostAdapter extends FirestoreRecyclerAdapter<Post, RecyclerLatestPostAdapter.ViewHolder> {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-    public RecyclerLatestPostAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {
+public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, RecyclerPostAdapter.ViewHolder> {
+
+    public RecyclerPostAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {
         super(options);
     }
 
@@ -33,9 +38,10 @@ public class RecyclerLatestPostAdapter extends FirestoreRecyclerAdapter<Post, Re
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Post model) {
+
         holder.txtPostTitle.setText(model.getTitle());
         holder.txtPostContent.setText(model.getContent());
-        holder.txtCreationDate.setText(model.getCreationDate());
+        holder.txtCreationDate.setText(Constants.convertTimeMillsToDateString(model.getCreationDate()));
         holder.txtCity.setText(model.getCity());
 
         if (model.getType() == 1) {

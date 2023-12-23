@@ -5,31 +5,48 @@ import com.google.firebase.firestore.Exclude;
 
 public class User {
 
+    private static User instance ;
     private String userId;
     private String userEmail;
-    private String userNickName;
+    private String userFirstName;
+    private String userLastName;
     private String userProfileImgURL;
+    private String userPhone;
     private boolean isAdmin;
-    private Timestamp registerTime;
+    private long registerTime;
     private String fcmToken;
 
-    public User() { }
+    private User() { }
+    public static User getInstance() {
+        if (instance == null) {
+            instance = new User();
+            return instance;
+        }
+        return instance;
+    }
 
-    public User(String userEmail, String userNickName, String userProfileImgURL, Timestamp registerTime, String fcmToken) {
+    public User(String userId, String userEmail, String userFirstName, String userLastName, String userProfileImgURL, String userPhone, boolean isAdmin, long registerTime, String fcmToken) {
+        this.userId = userId;
         this.userEmail = userEmail;
-        this.userNickName = userNickName;
+        this.userFirstName = userFirstName;
+        this.userLastName = userLastName;
         this.userProfileImgURL = userProfileImgURL;
+        this.userPhone = userPhone;
+        this.isAdmin = isAdmin;
+        this.registerTime = registerTime;
         this.fcmToken = fcmToken;
-        this.isAdmin = false;
-        this.registerTime =  registerTime;
     }
 
-    public String getUserNickName() {
-        return userNickName;
+    public static void setInstance(User instance) {
+        User.instance = instance;
     }
 
-    public void setUserNickName(String userNickName) {
-        this.userNickName = userNickName;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserEmail() {
@@ -40,20 +57,28 @@ public class User {
         this.userEmail = userEmail;
     }
 
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
+    }
+
     public String getUserProfileImgURL() {
         return userProfileImgURL;
     }
 
     public void setUserProfileImgURL(String userProfileImgURL) {
         this.userProfileImgURL = userProfileImgURL;
-    }
-
-    public Timestamp getRegisterTime() {
-        return registerTime;
-    }
-
-    public void setRegisterTime(Timestamp registerTime) {
-        this.registerTime = registerTime;
     }
 
     public boolean isAdmin() {
@@ -64,6 +89,14 @@ public class User {
         isAdmin = admin;
     }
 
+    public long getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(long registerTime) {
+        this.registerTime = registerTime;
+    }
+
     public String getFcmToken() {
         return fcmToken;
     }
@@ -72,12 +105,11 @@ public class User {
         this.fcmToken = fcmToken;
     }
 
-    @Exclude
-    public String getUserId() {
-        return userId;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 }

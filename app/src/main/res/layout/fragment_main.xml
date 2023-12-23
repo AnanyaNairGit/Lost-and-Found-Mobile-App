@@ -78,7 +78,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/button2"
+                android:id="@+id/btnLost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -86,7 +86,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/button3"
+                android:id="@+id/btnFound"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

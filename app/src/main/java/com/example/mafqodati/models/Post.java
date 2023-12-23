@@ -3,6 +3,7 @@ package com.example.mafqodati.models;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.example.mafqodati.R;
 import com.google.firebase.Timestamp;
@@ -14,21 +15,22 @@ import java.util.List;
 
 public class Post {
 
+    private static Post instance;
     private String title;
     private String content;
     private int type;
-    private String creationDate;
-    private ArrayList<String> imagesUri;
+    private long creationDate;
+    private ArrayList<String> imagesUri = new ArrayList<>();
     private String writerId;
     private double longitude;
     private double latitude;
-    private boolean isFinished ;
-    private String city ;
-    private String district ;
+    private boolean isFinished;
+    private String city;
+    private String district;
 
-    private String categoryId  ;
+    private String categoryId;
 
-    public Post(String title, String content, int type, String creationDate, ArrayList<String> imagesUri, String writerId, double longitude, double latitude, boolean isFinished, String city, String district, String categoryId) {
+    public Post(String title, String content, int type, long creationDate, ArrayList<String> imagesUri, String writerId, double longitude, double latitude, boolean isFinished, String city, String district, String categoryId) {
         this.title = title;
         this.content = content;
         this.type = type;
@@ -43,7 +45,19 @@ public class Post {
         this.categoryId = categoryId;
     }
 
-    public Post() {
+    private Post() {
+    }
+
+    public static Post getInstance() {
+        if (instance == null) {
+            instance = new Post();
+            return instance;
+        }
+        return instance;
+    }
+
+    public static void destruct() {
+        instance = null;
     }
 
     public String getTitle() {
@@ -70,11 +84,11 @@ public class Post {
         this.type = type;
     }
 
-    public String getCreationDate() {
+    public long getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(long creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -140,5 +154,23 @@ public class Post {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", type=" + type +
+                ", creationDate='" + creationDate + '\'' +
+                ", imagesUri=" + imagesUri +
+                ", writerId='" + writerId + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", isFinished=" + isFinished +
+                ", city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                '}';
     }
 }
