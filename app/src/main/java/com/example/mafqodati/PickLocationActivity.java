@@ -14,6 +14,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,9 @@ import com.mapbox.maps.plugin.gestures.OnMoveListener;
 import com.mapbox.maps.plugin.locationcomponent.LocationComponentPlugin;
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener;
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PickLocationActivity extends AppCompatActivity {
@@ -110,20 +114,24 @@ public class PickLocationActivity extends AppCompatActivity {
             progressDialog.show();
             Post.getInstance().setLongitude(selectedLongitude);
             Post.getInstance().setLatitude(selectedLatitude);
-            FireStore.writeNewPost(Post.getInstance()).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
-                    String postId = task.getResult().getId();
-                    FireStorage.uploadPostImages(postId)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    progressDialog.dismiss();
-                                    Post.destruct();
-                                    finishAndGoBackToManin();
-                                }
-                            });
-                }
+            List<Uri> imagesUriList = new ArrayList<>();
+            for( String uri : Post.getInstance().getImagesUri()){
+                imagesUriList.add(Uri.parse(uri));
+            }
+            // Upload images to Firebase Storage
+            FireStorage.uploadImages(imagesUriList).addOnSuccessListener(downloadUrls -> {
+                // downloadUrls is a List<String> containing the download URLs for all uploaded images
+
+                // Save the post to Firestore with the download URLs
+                FireStore.addPost(downloadUrls).addOnSuccessListener(documentReference -> {
+                    progressDialog.dismiss();
+                    Post.destruct();
+                    finishAndGoBackToManin();
+                }).addOnFailureListener(e -> {
+                    // Handle the failure to save post to Firestore
+                });
+            }).addOnFailureListener(e -> {
+                // Handle the failure to upload images
             });
         });
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

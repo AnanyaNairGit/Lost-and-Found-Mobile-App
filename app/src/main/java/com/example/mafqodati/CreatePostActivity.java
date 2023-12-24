@@ -150,15 +150,6 @@ public class CreatePostActivity extends AppCompatActivity {
         });
     }
 
-
-    private void pickImagesFromGallery() {
-        Intent intent = new Intent();
-        intent.setType(" image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
-    }
-
     ActivityResultLauncher<Intent> pickMedia =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {

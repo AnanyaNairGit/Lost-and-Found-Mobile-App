@@ -20,7 +20,7 @@ public class Post {
     private String content;
     private int type;
     private long creationDate;
-    private ArrayList<String> imagesUri = new ArrayList<>();
+    private List<String> imagesUri = new ArrayList<>();
     private String writerId;
     private double longitude;
     private double latitude;
@@ -92,11 +92,11 @@ public class Post {
         this.creationDate = creationDate;
     }
 
-    public ArrayList<String> getImagesUri() {
+    public List<String> getImagesUri() {
         return imagesUri;
     }
 
-    public void setImagesUri(ArrayList<String> imagesUri) {
+    public void setImagesUri(List<String> imagesUri) {
         this.imagesUri = imagesUri;
     }
 

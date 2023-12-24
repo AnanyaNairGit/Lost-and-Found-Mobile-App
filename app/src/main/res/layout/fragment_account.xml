@@ -43,6 +43,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvFullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="User Full Name"
@@ -51,6 +52,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="8dp"
@@ -128,6 +130,7 @@
                     android:src="@drawable/ic_phone" />
 
                 <TextView
+                    android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -150,6 +153,7 @@
                     android:src="@drawable/ic_male" />
 
                 <TextView
+                    android:id="@+id/tvGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -215,13 +219,13 @@
                     android:src="@drawable/ic_home" />
 
                 <TextView
+                    android:id="@+id/tvAddress"
                     android:layout_weight="11"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
                     android:text="Building No. 112, Sector - 44, Gurugram,Haryana 122001"
-
                     android:textColor="@color/black"
                     android:textSize="18sp" />
                 <ImageView

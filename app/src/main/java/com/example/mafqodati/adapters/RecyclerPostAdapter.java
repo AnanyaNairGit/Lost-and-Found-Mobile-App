@@ -1,6 +1,8 @@
 package com.example.mafqodati.adapters;
 
 
+import static com.example.mafqodati.util.Constants.POST_TYPE_LOST;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +43,10 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
 
         holder.txtPostTitle.setText(model.getTitle());
         holder.txtPostContent.setText(model.getContent());
-        holder.txtCreationDate.setText(Constants.convertTimeMillsToDateString(model.getCreationDate()));
+       // holder.txtCreationDate.setText("777");
         holder.txtCity.setText(model.getCity());
 
-        if (model.getType() == 1) {
+        if (model.getType() == POST_TYPE_LOST ){
             holder.txtPostType.setText("Lost");
             holder.txtPostType.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.red));
         } else {

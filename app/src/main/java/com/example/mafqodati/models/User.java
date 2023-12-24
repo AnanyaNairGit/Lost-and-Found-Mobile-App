@@ -6,7 +6,6 @@ import com.google.firebase.firestore.Exclude;
 public class User {
 
     private static User instance ;
-    private String userId;
     private String userEmail;
     private String userFirstName;
     private String userLastName;
@@ -25,8 +24,10 @@ public class User {
         return instance;
     }
 
-    public User(String userId, String userEmail, String userFirstName, String userLastName, String userProfileImgURL, String userPhone, boolean isAdmin, long registerTime, String fcmToken) {
-        this.userId = userId;
+    public static void destruct(){
+        instance = null;
+    }
+    public User( String userEmail, String userFirstName, String userLastName, String userProfileImgURL, String userPhone, boolean isAdmin, long registerTime, String fcmToken) {
         this.userEmail = userEmail;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -41,13 +42,7 @@ public class User {
         User.instance = instance;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getUserEmail() {
         return userEmail;

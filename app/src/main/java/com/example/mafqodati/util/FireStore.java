@@ -14,6 +14,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 
 public class FireStore {
@@ -22,21 +23,23 @@ public class FireStore {
     }
 
 
-//    public static Task<Void> writeNewUser(String userId, String userEmail, String userNickName, String fcmToken) {
-//        User newUser = new User(userEmail, userNickName, null, System.currentTimeMillis() ,fcmToken);
-//        return getFirestoreInstance().collection("user").document(userId).set(newUser);
-//    }
+    public static Task<Void> writeNewUser(String userId, User newUser) {
+        return getFirestoreInstance().collection("users").document(userId).set(newUser);
+    }
+    public static Task<Void> updateUserPicture(String userId, String newUri) {
+        return getFirestoreInstance().collection("users").document(userId).update("userProfileImgURL", newUri);
+    }
 
 
     public static Task<DocumentReference> writeNewPost(Post newPost) {
-        return getFirestoreInstance().collection("post").add(newPost);
+        return getFirestoreInstance().collection("posts").add(newPost);
     }
 
     public static Task<Void> updatePost(String postId, Post post) {
-        return getFirestoreInstance().collection("post").document(postId).set(post);
+        return getFirestoreInstance().collection("posts").document(postId).set(post);
     }
     public static DocumentReference postRef(String postId){
-        return getFirestoreInstance().collection("post").document(postId);
+        return getFirestoreInstance().collection("posts").document(postId);
     }
 
     public static Task<Void> removeUser(String userId) {
@@ -44,52 +47,57 @@ public class FireStore {
     }
 
     public static Task<Void> removePost(String postId) {
-        return getFirestoreInstance().collection("post").document(postId).delete();
+        return getFirestoreInstance().collection("posts").document(postId).delete();
     }
 
     public static Task<DocumentSnapshot> getUserData(String userId) {
-        return getFirestoreInstance().collection("user").document(userId).get();
+        return getFirestoreInstance().collection("users").document(userId).get();
     }
+    public static Task<DocumentReference> addPost(List<String> imageUrls) {
+        Post.getInstance().setImagesUri(imageUrls);
 
+        // Save the post to Firestore
+        return getFirestoreInstance().collection("posts").add(Post.getInstance());
+    }
 
     public static Query getPostData(int type, DocumentSnapshot startAfter) {
         if(startAfter != null) {
             if (type == 0)
-                return getFirestoreInstance().collection("post").orderBy("writeTime", Query.Direction.DESCENDING).limit(20).startAfter(startAfter);
+                return getFirestoreInstance().collection("posts").orderBy("writeTime", Query.Direction.DESCENDING).limit(20).startAfter(startAfter);
             else
-                return getFirestoreInstance().collection("post").whereEqualTo("type", type)
+                return getFirestoreInstance().collection("posts").whereEqualTo("type", type)
                         .orderBy("writeTime", Query.Direction.DESCENDING).limit(20).startAfter(startAfter);
         }
         else {
             if (type == 0)
-                return getFirestoreInstance().collection("post").orderBy("writeTime", Query.Direction.DESCENDING).limit(20);
+                return getFirestoreInstance().collection("posts").orderBy("writeTime", Query.Direction.DESCENDING).limit(20);
             else
-                return getFirestoreInstance().collection("post").whereEqualTo("type", type)
+                return getFirestoreInstance().collection("posts").whereEqualTo("type", type)
                         .orderBy("writeTime", Query.Direction.DESCENDING).limit(20);
         }
     }
 
     public static Task<QuerySnapshot> getMyPostData(String userId, DocumentSnapshot startAfter) {
         if(startAfter != null)
-            return getFirestoreInstance().collection("post").whereEqualTo("writerId", userId)
+            return getFirestoreInstance().collection("posts").whereEqualTo("writerId", userId)
                     .orderBy("writeTime", Query.Direction.DESCENDING).limit(20).startAfter(startAfter).get();
         else
-            return getFirestoreInstance().collection("post").whereEqualTo("writerId", userId)
+            return getFirestoreInstance().collection("posts").whereEqualTo("writerId", userId)
                     .orderBy("writeTime", Query.Direction.DESCENDING).limit(20).get();
     }
 
 
     public static Task<DocumentSnapshot> getPostDataFromId(String docId) {
-        return getFirestoreInstance().collection("post").document(docId).get();
+        return getFirestoreInstance().collection("posts").document(docId).get();
     }
 
 
     public static Task<Void> updateProfileNickName(String userId, String nickName){
-        return getFirestoreInstance().collection("user").document(userId).update("userNickName",nickName);
+        return getFirestoreInstance().collection("users").document(userId).update("userNickName",nickName);
     }
 
     public static Task<Void> updateProfileImage(String userId, String userProfileImgURL){
-        return getFirestoreInstance().collection("user").document(userId).update("userProfileImgURL",userProfileImgURL);
+        return getFirestoreInstance().collection("users").document(userId).update("userProfileImgURL",userProfileImgURL);
     }
 
 //    public static Task<DocumentReference> createChatRoom(String myId, String targetId){
@@ -115,11 +123,11 @@ public class FireStore {
 
     public static Task<QuerySnapshot> getUnfinishedPost(int postType) {
         if(postType == 0) {
-            return getFirestoreInstance().collection("post")
+            return getFirestoreInstance().collection("posts")
                     .whereEqualTo("finished", false).get();
         }
         else {
-            return getFirestoreInstance().collection("post")
+            return getFirestoreInstance().collection("posts")
                     .whereEqualTo("type", postType)
                     .whereEqualTo("finished", false).get();
         }
@@ -127,12 +135,12 @@ public class FireStore {
 
     public static Task<QuerySnapshot> getUnfinishedBuildingPost(int postType, int buildingNum) {
         if(postType == 0) {
-            return getFirestoreInstance().collection("post")
+            return getFirestoreInstance().collection("posts")
                     .whereEqualTo("summaryBuildingType", buildingNum)
                     .whereEqualTo("finished", false).get();
         }
         else {
-            return getFirestoreInstance().collection("post")
+            return getFirestoreInstance().collection("posts")
                     .whereEqualTo("summaryBuildingType", buildingNum)
                     .whereEqualTo("type", postType)
                     .whereEqualTo("finished", false).get();
@@ -148,7 +156,7 @@ public class FireStore {
     }
 
     public static Task<QuerySnapshot> getBuildingPost(int buildingId){
-        return getFirestoreInstance().collection("post").whereEqualTo("summaryBuildingType", buildingId).get();
+        return getFirestoreInstance().collection("posts").whereEqualTo("summaryBuildingType", buildingId).get();
     }
     public static Task<QuerySnapshot> getCategories(){
         return getFirestoreInstance().collection("category").get();

@@ -4,13 +4,11 @@ import com.google.firebase.Timestamp;
 
 public class ChatData {
 
-    // 메시지를 보낸 User ID
+
     private String userId;
 
-    // 메시지 내용
     private String message;
 
-    // 시간 정보
     private Timestamp date;
 
     public ChatData() {}
