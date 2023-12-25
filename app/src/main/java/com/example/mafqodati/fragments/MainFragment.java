@@ -118,7 +118,7 @@ public class MainFragment extends Fragment {
         long twoDaysAgoTimestamp = System.currentTimeMillis() - (2 * 24 * 60 * 60 * 1000); // Timestamp for 2 days ago
         Query query = db.collection("posts")
                 .whereGreaterThanOrEqualTo("creationDate", twoDaysAgoTimestamp)
-                .whereEqualTo("isFinished" , false);
+                .whereEqualTo("finished" , false);
         if (postType == POST_TYPE_LOST) {
             query = query.whereEqualTo("type", POST_TYPE_LOST);
 

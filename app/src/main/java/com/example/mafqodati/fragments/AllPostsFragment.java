@@ -51,7 +51,7 @@ public class AllPostsFragment extends Fragment {
 
             }
         });
-        Query query = db.collection("posts").whereEqualTo("isFinished" , false);
+        Query query = db.collection("posts").whereEqualTo("finished" , false);
         FirestoreRecyclerOptions<Post> postOptions = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, Post.class)
                 .build();
