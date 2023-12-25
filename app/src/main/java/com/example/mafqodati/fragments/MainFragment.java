@@ -7,12 +7,15 @@ import static com.example.mafqodati.util.Constants.POST_TYPE_LOST;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mafqodati.R;
 import com.example.mafqodati.adapters.CategoryAdapter;
@@ -29,6 +32,7 @@ public class MainFragment extends Fragment {
 
     private RecyclerView recyclerCategory, recyclerLatestPost;
     private CategoryAdapter categoryAdapter;
+    private Button btnShowAllPosts;
     private RecyclerPostAdapter recyclerPostAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private MaterialButtonToggleGroup toggleButtonType;
@@ -39,8 +43,9 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         recyclerCategory = view.findViewById(R.id.recyclerCategory);
         recyclerLatestPost = view.findViewById(R.id.recyclerLatestPost);
-        initPostTypeButton(view);
 
+        initPostTypeButton(view);
+        intiShowAllPostsButton(view);
         FirestoreRecyclerOptions<Category> categoryOptions = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(db.collection("category"), Category.class)
                 .build();
@@ -56,6 +61,21 @@ public class MainFragment extends Fragment {
         recyclerCategory.setAdapter(categoryAdapter);
 
         return view;
+    }
+
+    private void intiShowAllPostsButton(View view) {
+        btnShowAllPosts = view.findViewById(R.id.btnShowAllPosts);
+        btnShowAllPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AllPostsFragment fragment = new AllPostsFragment();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, fragment);
+                fragmentTransaction.addToBackStack(null); // Add to back stack to handle back navigation
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     @Override
@@ -97,7 +117,8 @@ public class MainFragment extends Fragment {
     private void filterRecentPost(int postType) {
         long twoDaysAgoTimestamp = System.currentTimeMillis() - (2 * 24 * 60 * 60 * 1000); // Timestamp for 2 days ago
         Query query = db.collection("posts")
-                .whereGreaterThanOrEqualTo("creationDate", twoDaysAgoTimestamp);
+                .whereGreaterThanOrEqualTo("creationDate", twoDaysAgoTimestamp)
+                .whereEqualTo("isFinished" , false);
         if (postType == POST_TYPE_LOST) {
             query = query.whereEqualTo("type", POST_TYPE_LOST);
 
@@ -108,10 +129,11 @@ public class MainFragment extends Fragment {
                 .setQuery(query, Post.class)
                 .build();
         recyclerPostAdapter = new RecyclerPostAdapter(postOptions);
-        recyclerPostAdapter.startListening();
         recyclerLatestPost.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerLatestPost.setAdapter(recyclerPostAdapter);
-
+        recyclerPostAdapter.startListening();
 
     }
+
+
 }

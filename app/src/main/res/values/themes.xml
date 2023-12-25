@@ -41,6 +41,13 @@
         <item name="android:textColorHint">@color/secondary</item>
         <item name="android:background">@drawable/edit_text_bg</item>
     </style>
+    <style name="EditTextStyleWhite" parent="Widget.AppCompat.EditText">
+        <item name="android:fontFamily">@font/cairo_regular</item>
+        <item name="android:textColor">@color/primary_dark</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorHint">@color/secondary</item>
+        <item name="android:background">@drawable/edit_text_bg</item>
+    </style>
 
 
     <style name="Theme.BottomNavigation" parent="Theme.MaterialComponents.DayNight.NoActionBar">
