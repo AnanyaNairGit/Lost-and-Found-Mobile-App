@@ -17,8 +17,8 @@ public class Post {
 
     private static Post instance;
     private String title;
-    private String content;
-    private int type;
+    private String description;
+    private String type;
     private long creationDate;
     private List<String> imagesUri = new ArrayList<>();
     private String writerId;
@@ -28,22 +28,9 @@ public class Post {
     private String city;
     private String district;
 
-    private String categoryId;
+    private String category;
 
-    public Post(String title, String content, int type, long creationDate, ArrayList<String> imagesUri, String writerId, double longitude, double latitude, boolean isFinished, String city, String district, String categoryId) {
-        this.title = title;
-        this.content = content;
-        this.type = type;
-        this.creationDate = creationDate;
-        this.imagesUri = imagesUri;
-        this.writerId = writerId;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.isFinished = isFinished;
-        this.city = city;
-        this.district = district;
-        this.categoryId = categoryId;
-    }
+
 
     private Post() {
     }
@@ -60,6 +47,25 @@ public class Post {
         instance = null;
     }
 
+    public Post(String title, String description, String type, long creationDate, List<String> imagesUri, String writerId, double longitude, double latitude, boolean isFinished, String city, String district, String category) {
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.creationDate = creationDate;
+        this.imagesUri = imagesUri;
+        this.writerId = writerId;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.isFinished = isFinished;
+        this.city = city;
+        this.district = district;
+        this.category = category;
+    }
+
+    public static void setInstance(Post instance) {
+        Post.instance = instance;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -68,19 +74,19 @@ public class Post {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -148,29 +154,11 @@ public class Post {
         this.district = district;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    @Override
-    public String toString() {
-        return "Post{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", type=" + type +
-                ", creationDate='" + creationDate + '\'' +
-                ", imagesUri=" + imagesUri +
-                ", writerId='" + writerId + '\'' +
-                ", longitude=" + longitude +
-                ", latitude=" + latitude +
-                ", isFinished=" + isFinished +
-                ", city='" + city + '\'' +
-                ", district='" + district + '\'' +
-                ", categoryId='" + categoryId + '\'' +
-                '}';
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

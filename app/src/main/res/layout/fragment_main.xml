@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_dark"
     tools:context=".fragments.MainFragment">
 
     <LinearLayout
@@ -11,93 +12,49 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/primary_dark">
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/etEmail"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextParagraphStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Category"
-                    android:textColor="@color/white" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerCategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:scrollbars="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </LinearLayout>
-
-        </FrameLayout>
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginVertical="8dp"
+                android:drawableStart="@drawable/baseline_search_24"
+                android:ems="10"
+                android:hint="@string/search"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_weight="2"
-            android:paddingVertical="8dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/TextParagraphStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Latest Posts" />
+            android:weightSum="2">
 
             <Button
-                android:id="@+id/btnShowAllPosts"
-                android:layout_width="wrap_content"
+                android:id="@+id/btnFilter"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="view all" />
+                android:layout_weight="1"
+                android:textAlignment="textStart"
+                android:text="Filter"
+                app:icon="@drawable/baseline_filter_list_24" />
+
+
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/toggleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:singleSelection="true">
-
-            <Button
-                style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btnBoth"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Both" />
-
-            <Button
-                style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btnLost"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Lost" />
-
-            <Button
-                style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btnFound"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Found" />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerLatestPost"
+            android:id="@+id/recyclerPost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

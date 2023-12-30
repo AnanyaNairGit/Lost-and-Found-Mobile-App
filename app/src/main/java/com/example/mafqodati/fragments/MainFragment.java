@@ -1,138 +1,180 @@
 package com.example.mafqodati.fragments;
 
-import static com.example.mafqodati.util.Constants.POST_TYPE_ANY;
-import static com.example.mafqodati.util.Constants.POST_TYPE_FOUND;
-import static com.example.mafqodati.util.Constants.POST_TYPE_LOST;
 
+import static com.example.mafqodati.util.Auth.getUserId;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.Window;
 
+import com.example.mafqodati.FilterActivity;
 import com.example.mafqodati.R;
-import com.example.mafqodati.adapters.CategoryAdapter;
 import com.example.mafqodati.adapters.RecyclerPostAdapter;
-import com.example.mafqodati.models.Category;
+import com.example.mafqodati.databinding.FragmentMainBinding;
 import com.example.mafqodati.models.Post;
+import com.example.mafqodati.util.FireStore;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.Random;
 
 
 public class MainFragment extends Fragment {
 
-    private RecyclerView recyclerCategory, recyclerLatestPost;
-    private CategoryAdapter categoryAdapter;
-    private Button btnShowAllPosts;
+    Intent filterData;
+    FragmentMainBinding binding;
     private RecyclerPostAdapter recyclerPostAdapter;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private MaterialButtonToggleGroup toggleButtonType;
+
+    private static final int REQUEST_CODE = 101;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        recyclerCategory = view.findViewById(R.id.recyclerCategory);
-        recyclerLatestPost = view.findViewById(R.id.recyclerLatestPost);
-
-        initPostTypeButton(view);
-        intiShowAllPostsButton(view);
-        FirestoreRecyclerOptions<Category> categoryOptions = new FirestoreRecyclerOptions.Builder<Category>()
-                .setQuery(db.collection("category"), Category.class)
-                .build();
-
-        filterRecentPost(POST_TYPE_ANY);
-
-        categoryAdapter = new CategoryAdapter(categoryOptions);
-
-
-        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerCategory.setLayoutManager(horizontalLayoutManager);
-
-        recyclerCategory.setAdapter(categoryAdapter);
-
-        return view;
-    }
-
-    private void intiShowAllPostsButton(View view) {
-        btnShowAllPosts = view.findViewById(R.id.btnShowAllPosts);
-        btnShowAllPosts.setOnClickListener(new View.OnClickListener() {
+        binding = FragmentMainBinding.inflate(inflater, container, false);
+        fillRecyclerList();
+        binding.btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AllPostsFragment fragment = new AllPostsFragment();
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, fragment);
-                fragmentTransaction.addToBackStack(null); // Add to back stack to handle back navigation
-                fragmentTransaction.commit();
+              //  fillToDb();
+                Intent intent = new Intent(getActivity(), FilterActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
+
+        return binding.getRoot();
+    }
+
+    private void fillToDb() {
+        String[] categories = getResources().getStringArray(R.array.lost_found_categories);
+        String[] types = getResources().getStringArray(R.array.type);
+        String[] cities = getResources().getStringArray(R.array.jordan_cities);
+        for (String category : categories) {
+            for (String type : types) {
+                for (String city : cities) {
+                    Post.destruct();
+                    Post post = Post.getInstance();
+                    post.setType(type);
+                    post.setCategory(category);
+                    post.setCity(city);
+                    post.setTitle(generateRandomString());
+                    post.setDescription(generateRandomString());
+                    post.setLatitude(0.6);
+                    post.setLongitude(31.7);
+                    post.setWriterId(getUserId());
+                    post.setFinished(false);
+                    post.setCreationDate(System.currentTimeMillis());
+                    FireStore.writeNewPost(post);
+                }
+            }
+        }
+    }
+    public  String generateRandomString() {
+        // Define the characters allowed in the random string
+        String allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        // Create an instance of Random
+        Random random = new Random();
+
+        // Generate a random length between 3 and 20
+        int length = random.nextInt(18) + 3; // Generates a random integer between 3 and 20
+
+        // Generate the random string
+        StringBuilder randomString = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(allowedCharacters.length());
+            randomString.append(allowedCharacters.charAt(index));
+        }
+
+        return randomString.toString();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE) {
+            // Handle the result here
+            if (resultCode == Activity.RESULT_OK) {
+
+                if (data != null) {
+                    filterData = data;
+                    fillRecyclerList();
+                }
+
+            } else {
+                // The activity might have been canceled
+            }
+        }
+    }
+
+    private void fillRecyclerList() {
+        Query query = buildFilterQuery();
+        FirestoreRecyclerOptions<Post> postOptions = new FirestoreRecyclerOptions.Builder<Post>()
+                .setQuery(query, Post.class)
+                .build();
+        recyclerPostAdapter = new RecyclerPostAdapter(postOptions);
+        binding.recyclerPost.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerPost.setAdapter(recyclerPostAdapter);
+        recyclerPostAdapter.startListening();
+    }
+
+    private Query buildFilterQuery() {
+        Query query = FireStore.postRef();
+        if (filterData != null) {
+            // Retrieve data from the Intent's extras
+            String city = filterData.getStringExtra("city");
+            String type = filterData.getStringExtra("type");
+            String category = filterData.getStringExtra("category");
+            String orderBy = filterData.getStringExtra("orderBy");
+            String orderDirection = filterData.getStringExtra("orderDirection");
+            if (!city.isEmpty()) {
+                query = query.whereEqualTo("city", city);
+            }
+            if (!type.isEmpty()) {
+                query = query.whereEqualTo("type", type);
+            }
+            if (!category.isEmpty()) {
+                query = query.whereEqualTo("category", category);
+            }
+            if (!orderBy.isEmpty()) {
+                if (!orderDirection.isEmpty()) {
+                    if (orderBy.equals("Descending")) {
+                        query = query.orderBy("orderBy", Query.Direction.DESCENDING);
+                    } else {
+                        query = query.orderBy("orderBy", Query.Direction.ASCENDING);
+                    }
+                } else {
+                    query = query.orderBy("orderBy", Query.Direction.ASCENDING);
+                }
+            }
+        }
+        return query;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        categoryAdapter.startListening();
         recyclerPostAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        categoryAdapter.stopListening();
         recyclerPostAdapter.stopListening();
-    }
-
-    private void initPostTypeButton(View view) {
-        toggleButtonType = view.findViewById(R.id.toggleButton);
-        toggleButtonType.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
-            @Override
-            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
-                if (isChecked) {
-                    switch (checkedId) {
-                        case R.id.btnLost:
-                            filterRecentPost(POST_TYPE_LOST);
-                            break;
-                        case R.id.btnFound:
-                            filterRecentPost(POST_TYPE_FOUND);
-                            break;
-                        case R.id.btnBoth:
-                            filterRecentPost(POST_TYPE_ANY);
-                            break;
-                    }
-                }
-            }
-        });
-    }
-
-    private void filterRecentPost(int postType) {
-        long twoDaysAgoTimestamp = System.currentTimeMillis() - (2 * 24 * 60 * 60 * 1000); // Timestamp for 2 days ago
-        Query query = db.collection("posts")
-                .whereGreaterThanOrEqualTo("creationDate", twoDaysAgoTimestamp)
-                .whereEqualTo("finished" , false);
-        if (postType == POST_TYPE_LOST) {
-            query = query.whereEqualTo("type", POST_TYPE_LOST);
-
-        } else if (postType == POST_TYPE_FOUND) {
-            query=  query.whereEqualTo("type", POST_TYPE_FOUND);
-        }
-        FirestoreRecyclerOptions<Post> postOptions = new FirestoreRecyclerOptions.Builder<Post>()
-                .setQuery(query, Post.class)
-                .build();
-        recyclerPostAdapter = new RecyclerPostAdapter(postOptions);
-        recyclerLatestPost.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerLatestPost.setAdapter(recyclerPostAdapter);
-        recyclerPostAdapter.startListening();
-
     }
 
 

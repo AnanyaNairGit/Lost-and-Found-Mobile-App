@@ -3,7 +3,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mapbox_access_token" translatable="false" tools:ignore="UnusedResources">sk.eyJ1IjoiemV5YWRraCIsImEiOiJjbHFncmp2MjUwZDNzMmpvMHFobzFyN2M3In0.Cpw0s7GBrLHMrXg91Ia5xw</string>
-    <string-array name="jordan_municipalities">
+    <string name="post_title">Post Title</string>
+    <string name="loren">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="search">Search</string>
+    <string name="order">Order</string>
+    <string name="category">Category</string>
+    <string name="type">Type</string>
+    <string-array name="jordan_cities">
         <item>Amman</item>
         <item>Irbid</item>
         <item>Zarqa</item>
@@ -16,4 +22,33 @@
         <item>Maan</item>
         <item>Aqaba</item>
     </string-array>
+
+    <string-array name="lost_found_categories">
+        <item>Electronics</item>
+        <item>Clothing</item>
+        <item>Accessories</item>
+        <item>Documents</item>
+        <item>Keys</item>
+        <item>Wallets/Purses</item>
+        <item>Books</item>
+        <item>Toys</item>
+        <item>Jewelry</item>
+        <item>Sports Equipment</item>
+        <item>Stationery</item>
+        <item>Tools</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="type">
+        <item>Lost</item>
+        <item>Found</item>
+    </string-array>
+
+    <string-array name="fields_order">
+        <item>creationDate</item>
+    </string-array>
+    <string-array name="fields_direction">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
 </resources>

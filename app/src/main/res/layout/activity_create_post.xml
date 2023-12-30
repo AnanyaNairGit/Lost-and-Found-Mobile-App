@@ -110,51 +110,69 @@
                         android:layout_marginTop="4dp"
                         android:text="Type" />
 
-                    <com.google.android.material.button.MaterialButtonToggleGroup
-                        android:id="@+id/toggleButton"
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:checkedButton="@id/btnLost"
-                        app:singleSelection="true">
-                        <Button
-                            style="?attr/materialButtonOutlinedStyle"
-                            android:id="@+id/btnLost"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Lost" />
+                        app:startIconDrawable="@drawable/baseline_home_24">
 
-                        <Button
-                            style="?attr/materialButtonOutlinedStyle"
-                            android:id="@+id/btnFound"
-                            android:layout_width="0dp"
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/etType"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Found" />
-                    </com.google.android.material.button.MaterialButtonToggleGroup>
+                            android:layout_marginTop="8dp"
+                            android:hint="@string/type"
+                            android:inputType="none"
+                            android:textColor="?attr/colorPrimary" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
                     <TextView
                         style="@style/TextParagraphStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Category"/>
-                    <Spinner
-                        android:id="@+id/spnCategory"
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout2"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="16dp"/>
+                        app:startIconDrawable="@drawable/baseline_home_24">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/etCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:hint="@string/category"
+                            android:inputType="none"
+                            android:textColor="?attr/colorPrimary" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         style="@style/TextParagraphStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="City"/>
-                    <Spinner
-                        android:id="@+id/spnCity"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout3"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="16dp"/>
+                        app:startIconDrawable="@drawable/baseline_home_24">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/etCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:hint="University"
+                            android:inputType="none"
+                            android:textColor="?attr/colorPrimary" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </LinearLayout>
 

@@ -1,11 +1,13 @@
 package com.example.mafqodati.adapters;
 
 
-import static com.example.mafqodati.util.Constants.POST_TYPE_LOST;
+
+import static com.example.mafqodati.util.Constants.convertTimeMillsToDateString;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,9 +19,14 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mafqodati.R;
 import com.example.mafqodati.models.Post;
+import com.example.mafqodati.models.User;
 import com.example.mafqodati.util.Constants;
+import com.example.mafqodati.util.FireStore;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,30 +49,43 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Post model) {
 
         holder.txtPostTitle.setText(model.getTitle());
-        holder.txtPostContent.setText(model.getContent());
-       // holder.txtCreationDate.setText("777");
+        holder.txtPostContent.setText(model.getDescription());
+        holder.txtCreationDate.setText(convertTimeMillsToDateString(model.getCreationDate()));
+        holder.txtCategory.setText(model.getCategory());
+        holder.txtImgCount.setText(String.valueOf(model.getImagesUri().size()));
         holder.txtCity.setText(model.getCity());
-
-        if (model.getType() == POST_TYPE_LOST ){
-            holder.txtPostType.setText("Lost");
-            holder.txtPostType.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.red));
-        } else {
-            holder.txtPostType.setText("Found");
-            holder.txtPostType.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.green));
+        holder.txtPostType.setText(model.getType());
+        if(model.getImagesUri().size()>0){
+            Glide.with(holder.itemView.getContext())
+                    .load(model.getImagesUri().get(0))
+                    .apply(RequestOptions.formatOf(DecodeFormat.PREFER_ARGB_8888))
+                    .into(holder.imgPostImage);
         }
-        Glide.with(holder.itemView.getContext())
-                .load(model.getImagesUri().get(0))
-                .apply(RequestOptions.formatOf(DecodeFormat.PREFER_ARGB_8888))
-                .into(holder.imgPostImage);
+        FireStore.getUserData(model.getWriterId()).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if (documentSnapshot.exists()) {
+                        User user = documentSnapshot.toObject(User.class);
+                        holder.btnCall.setText(user.getUserPhone());
+                    }
+                }
+            }
+        });
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtPostTitle;
         TextView txtPostContent;
         TextView txtCity;
+        TextView txtCategory;
         TextView txtCreationDate;
         TextView txtPostType;
+        TextView txtImgCount;
         ImageView imgPostImage;
+        Button btnCall;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,7 +94,10 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
             txtCreationDate = itemView.findViewById(R.id.txtCreationDate);
             txtPostType = itemView.findViewById(R.id.txtPostType);
             txtCity = itemView.findViewById(R.id.txtCity);
+            txtCategory = itemView.findViewById(R.id.txtCategory);
             imgPostImage = itemView.findViewById(R.id.imgPostMain);
+            txtImgCount = itemView.findViewById(R.id.txtImgCount);
+            btnCall = itemView.findViewById(R.id.btnCall);
         }
     }
 }

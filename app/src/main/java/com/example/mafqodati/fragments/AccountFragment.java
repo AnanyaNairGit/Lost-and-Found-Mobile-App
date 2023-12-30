@@ -46,7 +46,6 @@ public class AccountFragment extends Fragment {
         tvFullName = view.findViewById(R.id.tvFullName);
         tvEmail = view.findViewById(R.id.tvEmail);
         tvPhone = view.findViewById(R.id.tvPhone);
-        tvGender = view.findViewById(R.id.tvGender);
         loadUserData(Auth.getUserId());
         return view;
     }

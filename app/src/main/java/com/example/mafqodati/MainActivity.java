@@ -55,33 +55,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void post(View view) {
-//        ArrayList<String> images = new ArrayList<>();
-//        images.add("https://firebasestorage.googleapis.com/v0/b/mafqodati1.appspot.com/o/posts%2FCdFHpfUrAiWv4ynxxZ8falQybDI3%2FWhatsApp%20Image%202023-12-16%20at%206.59.23%20PM.jpeg?alt=media&token=97608d2a-37f1-4617-82eb-f6fd64ef4b57");
-//        images.add("https://firebasestorage.googleapis.com/v0/b/mafqodati1.appspot.com/o/posts%2FCdFHpfUrAiWv4ynxxZ8falQybDI3%2FWhatsApp%20Image%202023-12-16%20at%206.59.32%20PM.jpeg?alt=media&token=07637a6c-1a59-434f-b29a-2c4a9da263fa");
-//        images.add("https://firebasestorage.googleapis.com/v0/b/mafqodati1.appspot.com/o/posts%2FCdFHpfUrAiWv4ynxxZ8falQybDI3%2FWhatsApp%20Image%202023-12-16%20at%206.59.42%20PM.jpeg?alt=media&token=7193259c-369d-4cc4-8c71-3b1e78712e84");
-//
-//        Post post = new Post();
-//        post.setCity("Amman");
-//        post.setContent("ILorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.");
-//        post.setTitle("Lost Iphone");
-//        post.setType(1);
-//        post.setFinished(false);
-//        post.setCategoryId("aRYRbpOZX60274Kr24FP");
-//        post.setDistrict("Marka");
-//        post.setLatitude(31.8888);
-//        post.setLatitude(31.4444);
-//        post.setWriterId(mAuth.getCurrentUser().getUid());
-//        post.setImagesUri(images);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            post.setCreationDate(LocalDate.now().toString());
-//        }
-//        Firestore.writeNewPost(post).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//            @Override
-//            public void onSuccess(DocumentReference documentReference) {
-//                Toast.makeText(MainActivity.this, "Uploaded", Toast.LENGTH_LONG).show();
-//            }
-//        });
-
         startActivity(new Intent(this , CreatePostActivity.class));
     }
 
