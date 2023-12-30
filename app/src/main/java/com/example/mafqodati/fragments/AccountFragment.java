@@ -56,20 +56,11 @@ public class AccountFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
 
-                    User.destruct();
-                    User.getInstance().setUserEmail(documentSnapshot.getString("userEmail"));
-                    User.getInstance().setUserFirstName(documentSnapshot.getString("userFirstName"));
-                    User.getInstance().setUserLastName(documentSnapshot.getString("userLastName"));
-                    User.getInstance().setUserProfileImgURL(documentSnapshot.getString("userProfileImgURL"));
-                    User.getInstance().setUserPhone(documentSnapshot.getString("userPhone"));
-                    User.getInstance().setAdmin(Boolean.TRUE.equals(documentSnapshot.getBoolean("isAdmin")));
-                    User.getInstance().setRegisterTime(documentSnapshot.getLong("registerTime"));
-                    User.getInstance().setFcmToken(documentSnapshot.getString("fcmToken"));
-
-                    tvFullName.setText(User.getInstance().getUserFirstName() + " " + User.getInstance().getUserLastName());
-                    tvEmail.setText(User.getInstance().getUserEmail());
-                    tvPhone.setText(User.getInstance().getUserPhone());
-                    Glide.with(getContext())
+                    User user = documentSnapshot.toObject(User.class);
+                    tvFullName.setText(user.getUserFirstName() + " " + user.getUserLastName());
+                    tvEmail.setText(user.getUserEmail());
+                    tvPhone.setText(user.getUserPhone());
+                    Glide.with(getActivity())
                             .load(User.getInstance().getUserProfileImgURL())
                             .into(imgUser)
                             ;
