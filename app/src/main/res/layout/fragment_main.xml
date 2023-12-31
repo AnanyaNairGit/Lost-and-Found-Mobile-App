@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_dark"
     tools:context=".fragments.MainFragment">
 
     <LinearLayout
@@ -15,8 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark">
-
+            android:background="@drawable/bg_profile">
             <EditText
                 android:id="@+id/etEmail"
                 style="@style/EditTextStyle"
@@ -36,6 +34,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/primary_dark"
             android:weightSum="2">
 
             <Button
@@ -50,7 +49,15 @@
 
 
         </LinearLayout>
-
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipSpacing="8dp"
+            android:background="@color/primary_dark"
+            app:singleLine="true">
+            <!-- Add chips dynamically in code -->
+        </com.google.android.material.chip.ChipGroup>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPost"
             android:layout_width="match_parent"

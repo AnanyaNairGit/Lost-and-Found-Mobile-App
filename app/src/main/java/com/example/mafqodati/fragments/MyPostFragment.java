@@ -30,7 +30,7 @@ public class MyPostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_post, container, false);
         recyclerMyPost = view.findViewById(R.id.recyclerMyPost);
         FirestoreRecyclerOptions<Post> postOptions = new FirestoreRecyclerOptions.Builder<Post>()
-                .setQuery(db.collection("post").whereEqualTo("writerId",mAuth.getCurrentUser().getUid() ), Post.class)
+                .setQuery(db.collection("posts").whereEqualTo("writerId",mAuth.getCurrentUser().getUid() ), Post.class)
                 .build();
         recyclerPostAdapter = new RecyclerPostAdapter(postOptions);
         recyclerMyPost.setLayoutManager(new LinearLayoutManager(getContext()));

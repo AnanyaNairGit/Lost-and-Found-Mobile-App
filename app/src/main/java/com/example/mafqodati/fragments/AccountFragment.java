@@ -61,7 +61,7 @@ public class AccountFragment extends Fragment {
                     tvEmail.setText(user.getUserEmail());
                     tvPhone.setText(user.getUserPhone());
                     Glide.with(getActivity())
-                            .load(User.getInstance().getUserProfileImgURL())
+                            .load(user.getUserProfileImgURL())
                             .into(imgUser)
                             ;
                 } else {

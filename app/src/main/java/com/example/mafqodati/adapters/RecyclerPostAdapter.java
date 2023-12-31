@@ -26,6 +26,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.chip.Chip;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.SimpleDateFormat;
@@ -51,10 +52,10 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
         holder.txtPostTitle.setText(model.getTitle());
         holder.txtPostContent.setText(model.getDescription());
         holder.txtCreationDate.setText(convertTimeMillsToDateString(model.getCreationDate()));
-        holder.txtCategory.setText(model.getCategory());
+        holder.chpCategory.setText(model.getCategory());
         holder.txtImgCount.setText(String.valueOf(model.getImagesUri().size()));
-        holder.txtCity.setText(model.getCity());
-        holder.txtPostType.setText(model.getType());
+        holder.chpCity.setText(model.getCity());
+        holder.chpType.setText(model.getType());
         if(model.getImagesUri().size()>0){
             Glide.with(holder.itemView.getContext())
                     .load(model.getImagesUri().get(0))
@@ -79,10 +80,12 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtPostTitle;
         TextView txtPostContent;
-        TextView txtCity;
-        TextView txtCategory;
+
         TextView txtCreationDate;
-        TextView txtPostType;
+        Chip chpType;
+        Chip chpCity;
+        Chip chpCategory;
+
         TextView txtImgCount;
         ImageView imgPostImage;
         Button btnCall;
@@ -92,9 +95,9 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
             txtPostTitle = itemView.findViewById(R.id.txtPostTitle);
             txtPostContent = itemView.findViewById(R.id.txtPostContent);
             txtCreationDate = itemView.findViewById(R.id.txtCreationDate);
-            txtPostType = itemView.findViewById(R.id.txtPostType);
-            txtCity = itemView.findViewById(R.id.txtCity);
-            txtCategory = itemView.findViewById(R.id.txtCategory);
+            chpType = itemView.findViewById(R.id.chpType);
+            chpCity = itemView.findViewById(R.id.chpCity);
+            chpCategory = itemView.findViewById(R.id.chpCategory);
             imgPostImage = itemView.findViewById(R.id.imgPostMain);
             txtImgCount = itemView.findViewById(R.id.txtImgCount);
             btnCall = itemView.findViewById(R.id.btnCall);

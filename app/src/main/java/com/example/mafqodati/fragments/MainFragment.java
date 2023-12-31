@@ -27,6 +27,7 @@ import com.example.mafqodati.databinding.FragmentMainBinding;
 import com.example.mafqodati.models.Post;
 import com.example.mafqodati.util.FireStore;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.chip.Chip;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -49,7 +50,7 @@ public class MainFragment extends Fragment {
         binding.btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  fillToDb();
+                //  fillToDb();
                 Intent intent = new Intent(getActivity(), FilterActivity.class);
                 startActivityForResult(intent, REQUEST_CODE);
             }
@@ -82,7 +83,8 @@ public class MainFragment extends Fragment {
             }
         }
     }
-    public  String generateRandomString() {
+
+    public String generateRandomString() {
         // Define the characters allowed in the random string
         String allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -133,6 +135,7 @@ public class MainFragment extends Fragment {
     }
 
     private Query buildFilterQuery() {
+
         Query query = FireStore.postRef();
         if (filterData != null) {
             // Retrieve data from the Intent's extras
@@ -142,12 +145,27 @@ public class MainFragment extends Fragment {
             String orderBy = filterData.getStringExtra("orderBy");
             String orderDirection = filterData.getStringExtra("orderDirection");
             if (!city.isEmpty()) {
+                Chip chip = new Chip(getActivity());
+                chip.setText(city);
+                chip.setClickable(true);
+                chip.setCheckable(false); // Set to true if you want the chips to behave like checkable buttons
+                binding.chipGroup.addView(chip);
                 query = query.whereEqualTo("city", city);
             }
             if (!type.isEmpty()) {
+                Chip chip = new Chip(getActivity());
+                chip.setText(type);
+                chip.setClickable(true);
+                chip.setCheckable(false); // Set to true if you want the chips to behave like checkable buttons
+                binding.chipGroup.addView(chip);
                 query = query.whereEqualTo("type", type);
             }
             if (!category.isEmpty()) {
+                Chip chip = new Chip(getActivity());
+                chip.setText(category);
+                chip.setClickable(true);
+                chip.setCheckable(false); // Set to true if you want the chips to behave like checkable buttons
+                binding.chipGroup.addView(chip);
                 query = query.whereEqualTo("category", category);
             }
             if (!orderBy.isEmpty()) {
@@ -161,6 +179,20 @@ public class MainFragment extends Fragment {
                     query = query.orderBy("orderBy", Query.Direction.ASCENDING);
                 }
             }
+            Chip chip = new Chip(getActivity());
+            chip.setText("Clear");
+            chip.setClickable(true);
+            chip.setCheckable(false); // Set to true if you want the chips to behave like checkable buttons
+            chip.setChipIcon(getResources().getDrawable(R.drawable.baseline_cancel_24));
+            binding.chipGroup.addView(chip);
+            chip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    filterData = null;
+                    fillRecyclerList();
+                    binding.chipGroup.removeAllViews();
+                }
+            });
         }
         return query;
     }
