@@ -24,16 +24,12 @@ public class FilterActivity extends AppCompatActivity {
         initTypesMenu();
         initCitiesMenu();
         initCategoriesMenu();
-        initOrderByMenu();
-        initOrderDirectionMenu();
         binding.btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 binding.etCity.setText("");
                 binding.etType.setText("");
                 binding.etCategory.setText("");
-                binding.etOrderField.setText("");
-                binding.etDirection.setText("");
             }
         });
         binding.btnFilter.setOnClickListener(new View.OnClickListener() {
@@ -42,15 +38,10 @@ public class FilterActivity extends AppCompatActivity {
                 String city = binding.etCity.getText().toString();
                 String type = binding.etType.getText().toString();
                 String category = binding.etCategory.getText().toString();
-                String orderBy = binding.etOrderField.getText().toString();
-                String orderDirection = binding.etDirection.getText().toString();
-
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("city", city);
                 resultIntent.putExtra("type", type);
                 resultIntent.putExtra("category", category);
-                resultIntent.putExtra("orderBy", orderBy);
-                resultIntent.putExtra("orderDirection", orderDirection);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }
@@ -75,16 +66,7 @@ public class FilterActivity extends AppCompatActivity {
         binding.etCategory.setAdapter(adapter);
     }
 
-    private void initOrderByMenu() {
-        String[] fields = getResources().getStringArray(R.array.fields_order);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, fields);
-        binding.etOrderField.setAdapter(adapter);
-    }
 
-    private void initOrderDirectionMenu() {
-        String[] fieldsDirection = getResources().getStringArray(R.array.fields_direction);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, fieldsDirection);
-        binding.etDirection.setAdapter(adapter);
-    }
+
 
 }

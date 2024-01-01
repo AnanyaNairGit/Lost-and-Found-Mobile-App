@@ -155,8 +155,7 @@ public class MainFragment extends Fragment {
             String city = filterData.getStringExtra("city");
             String type = filterData.getStringExtra("type");
             String category = filterData.getStringExtra("category");
-            String orderBy = filterData.getStringExtra("orderBy");
-            String orderDirection = filterData.getStringExtra("orderDirection");
+
             if (!city.isEmpty()) {
                 Chip chip = new Chip(getActivity());
                 chip.setText(city);
@@ -181,17 +180,8 @@ public class MainFragment extends Fragment {
                 binding.chipGroup.addView(chip);
                 query = query.whereEqualTo("category", category);
             }
-            if (!orderBy.isEmpty()) {
-                if (!orderDirection.isEmpty()) {
-                    if (orderBy.equals("Descending")) {
-                        query = query.orderBy("orderBy", Query.Direction.DESCENDING);
-                    } else {
-                        query = query.orderBy("orderBy", Query.Direction.ASCENDING);
-                    }
-                } else {
-                    query = query.orderBy("orderBy", Query.Direction.ASCENDING);
-                }
-            }
+
+            query = query.orderBy("orderBy", Query.Direction.DESCENDING);
             Chip chip = new Chip(getActivity());
             chip.setText("Clear");
             chip.setClickable(true);
