@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,9 +30,14 @@ import com.google.android.material.chip.Chip;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, RecyclerPostAdapter.ViewHolder> {
+    public interface OnItemClickListener {
+        void onItemClick(String postId);
+    }
+    private OnItemClickListener onItemClickListener;
 
-    public RecyclerPostAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {
+    public RecyclerPostAdapter(@NonNull FirestoreRecyclerOptions<Post> options ,OnItemClickListener onItemClickListener) {
         super(options);
+        this.onItemClickListener = onItemClickListener ;
     }
 
     @NonNull
@@ -72,7 +78,9 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
 
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public  class ViewHolder extends RecyclerView.ViewHolder {
+        CardView container ;
+
         TextView txtPostTitle;
         TextView txtPostContent;
 
@@ -93,9 +101,20 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
             chpType = itemView.findViewById(R.id.chpType);
             chpCity = itemView.findViewById(R.id.chpCity);
             chpCategory = itemView.findViewById(R.id.chpCategory);
+            container = itemView.findViewById(R.id.container);
             imgPostImage = itemView.findViewById(R.id.imgPostMain);
             txtImgCount = itemView.findViewById(R.id.txtImgCount);
             btnCall = itemView.findViewById(R.id.btnCall);
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Call onItemClick when an item is clicked
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onItemClick(getSnapshots().getSnapshot(getAdapterPosition()).getId());
+                    }
+                }
+            });
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.mafqodati.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mafqodati.R;
+import com.example.mafqodati.ViewPostActivity;
 import com.example.mafqodati.adapters.RecyclerMyPostAdapter;
 import com.example.mafqodati.adapters.RecyclerPostAdapter;
 import com.example.mafqodati.databinding.FragmentMyPostBinding;
@@ -66,7 +68,15 @@ public class MyPostFragment extends Fragment {
     };
 
     RecyclerMyPostAdapter.OnItemClickListener onItemClickListener = postId -> {
-        Log.v("LOG_ON_ITEM" , postId);
+
+        Intent intent = new Intent(getActivity(), ViewPostActivity.class);
+
+        // Put extra data (replace "yourKey" and "yourData" with appropriate key and data)
+        intent.putExtra("POST_ID", postId);
+
+        // Start the activity
+        startActivity(intent);
+
     };
 
     private void fillMyPostRecycler() {

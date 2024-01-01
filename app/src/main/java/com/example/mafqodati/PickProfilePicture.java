@@ -28,6 +28,7 @@ import com.example.mafqodati.util.FireStore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.storage.UploadTask;
 
 public class PickProfilePicture extends AppCompatActivity {
@@ -65,27 +66,38 @@ public class PickProfilePicture extends AppCompatActivity {
             progressDialog = new ProgressDialog(PickProfilePicture.this);
             progressDialog.setMessage("Loading...");
             progressDialog.show();
-            FireStorage.uploadProfilePicture(chosenImageUri).addOnSuccessListener(
-                    new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // Use getDownloadUrl() instead of getUploadSessionUri()
-                            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+            Auth.createUser(User.getInstance().getUserEmail(), getIntent().getStringExtra("PASSWORD")).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+
+                    FireStorage.uploadProfilePicture(chosenImageUri).addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
-                                public void onSuccess(Uri uri) {
-                                    FireStore.updateUserPicture(Auth.getUserId(), uri.toString())
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    progressDialog.dismiss();
-                                                    finishAndGoBackToManin();
-                                                }
-                                            });
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    // Use getDownloadUrl() instead of getUploadSessionUri()
+                                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            User.getInstance().setUserProfileImgURL(String.valueOf(uri));
+                                            FireStore.writeNewUser(authResult.getUser().getUid(), User.getInstance())
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                    }
-            );
+                            }
+                    );
+
+                }
+            });
+
         });
 
     }

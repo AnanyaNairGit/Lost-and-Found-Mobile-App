@@ -64,6 +64,9 @@ public class FireStore {
         return getFirestoreInstance().collection("posts").add(Post.getInstance());
     }
 
+    public static Task<DocumentSnapshot> getPost(String postId){
+        return postRef().document(postId).get();
+    }
     public static Query getPostData(int type, DocumentSnapshot startAfter) {
         if (startAfter != null) {
             if (type == 0)

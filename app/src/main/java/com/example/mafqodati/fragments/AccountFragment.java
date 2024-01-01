@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.mafqodati.R;
 import com.example.mafqodati.adapters.RecyclerPostAdapter;
+import com.example.mafqodati.databinding.FragmentAccountBinding;
 import com.example.mafqodati.models.Post;
 import com.example.mafqodati.models.User;
 import com.example.mafqodati.util.Auth;
@@ -32,22 +33,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountFragment extends Fragment {
 
-    private CircleImageView imgUser;
-    private TextView tvFullName;
-    private TextView tvEmail;
-    private TextView tvPhone;
-    private TextView tvGender;
+    FragmentAccountBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
-        imgUser = view.findViewById(R.id.imgUser);
-        tvFullName = view.findViewById(R.id.tvFullName);
-        tvEmail = view.findViewById(R.id.tvEmail);
-        tvPhone = view.findViewById(R.id.tvPhone);
+        binding = FragmentAccountBinding.inflate(inflater, container, false);
+
         loadUserData(Auth.getUserId());
-        return view;
+        return binding.getRoot();
     }
 
     private void loadUserData(String userId) {
@@ -55,15 +49,15 @@ public class AccountFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-
                     User user = documentSnapshot.toObject(User.class);
-                    tvFullName.setText(user.getUserFirstName() + " " + user.getUserLastName());
-                    tvEmail.setText(user.getUserEmail());
-                    tvPhone.setText(user.getUserPhone());
+                    binding.tvFullName.setText(user.getUserFirstName() + " " + user.getUserLastName());
+                    binding.tvEmail.setText(user.getUserEmail());
+                    binding.tvPhone.setText(user.getUserPhone());
                     Glide.with(getActivity())
                             .load(user.getUserProfileImgURL())
-                            .into(imgUser)
-                            ;
+                            .into(binding.imgUser)
+                    ;
+
                 } else {
                     // User data doesn't exist or there was an error
                     // Handle the case accordingly

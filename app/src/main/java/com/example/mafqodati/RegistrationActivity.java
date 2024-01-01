@@ -1,5 +1,6 @@
 package com.example.mafqodati;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,50 +9,82 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mafqodati.databinding.ActivityRegistrationBinding;
 import com.example.mafqodati.models.User;
 import com.example.mafqodati.util.Auth;
+import com.example.mafqodati.util.Constants;
 import com.example.mafqodati.util.FireStore;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private EditText etFirstName ;
-    private EditText etLastName ;
-    private EditText etEmail ;
-    private EditText etPassword ;
-    private EditText etPhone ;
+    ActivityRegistrationBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
-        etEmail = findViewById(R.id.etEmail);
-        etPhone = findViewById(R.id.etPhone);
-        etPassword = findViewById(R.id.etPassword);
+        binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
     }
 
     public void toPickNewImage(View view) {
-        String email = etEmail.getText().toString().trim() ;
-        String password = etPassword.getText().toString().trim() ;
-        User.getInstance().setUserFirstName(etFirstName.getText().toString().trim());
-        User.getInstance().setUserLastName(etLastName.getText().toString().trim());
+        String email = binding.etEmail.getText().toString().trim();
+        String password = binding.etPassword.getText().toString().trim();
+        String confirmPassword = binding.erConfirmPassword.getText().toString();
+        String firstName = binding.etFirstName.getText().toString().trim();
+        String lastName = binding.etLastName.getText().toString().trim();
+
+
+        // Validation
+        if (firstName.isEmpty()) {
+            binding.etFirstName.setError("Required");
+            binding.etFirstName.requestFocus();
+            return;
+        }
+        if (lastName.isEmpty()) {
+            binding.etLastName.setError("Required");
+            binding.etLastName.requestFocus();
+            return;
+        }
+        if (email.isEmpty()) {
+            binding.etEmail.setError("Required");
+            binding.etEmail.requestFocus();
+            return;
+        }
+        if (password.isEmpty()) {
+            binding.etPassword.setError("Required");
+            binding.etPassword.requestFocus();
+            return;
+        }
+        if (!Constants.isValidEmail(email)){
+            binding.etEmail.setError("Enter valid email");
+            binding.etEmail.requestFocus();
+            return;
+        }
+        if(!Constants.isValidPassword(password)){
+            binding.etPassword.setError("Must be more that 8 characters");
+            binding.etPassword.requestFocus();
+            return;
+        }
+        if(!Constants.isPasswordMatches(password , confirmPassword)){
+            binding.erConfirmPassword.setError("Must be match");
+            binding.erConfirmPassword.requestFocus();
+            return;
+        }
+        User.getInstance().setUserFirstName(firstName);
+        User.getInstance().setUserLastName(lastName);
         User.getInstance().setUserEmail(email);
-        User.getInstance().setUserPhone(etPhone.getText().toString().trim());
         User.getInstance().setAdmin(false);
         User.getInstance().setRegisterTime(System.currentTimeMillis());
-        Auth.createUser(email , password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                FireStore.writeNewUser(authResult.getUser().getUid() , User.getInstance())
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                              startActivity(new Intent(RegistrationActivity.this , PickProfilePicture.class));
-                            }
-                        }); 
-            }
-        });
+        Intent intent = new Intent(this , SendOTPActivity.class) ;
+        intent.putExtra("PASSWORD" , password);
+        startActivity(intent);
     }
 }

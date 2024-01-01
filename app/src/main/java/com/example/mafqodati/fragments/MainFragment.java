@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import android.view.Window;
 
 import com.example.mafqodati.FilterActivity;
 import com.example.mafqodati.R;
+import com.example.mafqodati.ViewPostActivity;
+import com.example.mafqodati.adapters.RecyclerMyPostAdapter;
 import com.example.mafqodati.adapters.RecyclerPostAdapter;
 import com.example.mafqodati.databinding.FragmentMainBinding;
 import com.example.mafqodati.models.Post;
@@ -123,12 +126,22 @@ public class MainFragment extends Fragment {
         }
     }
 
+    RecyclerPostAdapter.OnItemClickListener onItemClickListener = postId -> {
+        Intent intent = new Intent(getActivity(), ViewPostActivity.class);
+
+        // Put extra data (replace "yourKey" and "yourData" with appropriate key and data)
+        intent.putExtra("POST_ID", postId);
+
+        // Start the activity
+        startActivity(intent);
+    };
+
     private void fillRecyclerList() {
         Query query = buildFilterQuery();
         FirestoreRecyclerOptions<Post> postOptions = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, Post.class)
                 .build();
-        recyclerPostAdapter = new RecyclerPostAdapter(postOptions);
+        recyclerPostAdapter = new RecyclerPostAdapter(postOptions , onItemClickListener);
         binding.recyclerPost.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerPost.setAdapter(recyclerPostAdapter);
         recyclerPostAdapter.startListening();
