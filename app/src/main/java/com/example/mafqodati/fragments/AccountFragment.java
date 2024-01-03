@@ -38,7 +38,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentAccountBinding.inflate(inflater, container, false);
 
-        loadUserData(Auth.getUserId());
+
         binding.btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,8 +79,14 @@ public class AccountFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void loadUserData(String userId) {
-        FireStore.getUserData(userId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadUserData();
+    }
+
+    private void loadUserData() {
+        FireStore.getUserData(Auth.getUserId()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {

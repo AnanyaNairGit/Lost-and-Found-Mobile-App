@@ -88,6 +88,31 @@ public class FireStorage {
         return tasks;
     }
 
+    public static Task<String> uploadImage(Uri imageUri, String userId) {
+        StorageReference imageRef = getStorageInstance().getReference().child("users").child(userId + System.currentTimeMillis()).child(UUID.randomUUID().toString());
+
+        return imageRef.putFile(imageUri)
+                .continueWithTask(task -> {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    // Return the download URL
+                    return imageRef.getDownloadUrl();
+                })
+                .continueWith(task -> {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        if (downloadUri != null) {
+                            return downloadUri.toString();
+                        } else {
+                            throw new Exception("Download URL is null");
+                        }
+                    } else {
+                        throw task.getException();
+                    }
+                });
+    }
+
     public static Task<UploadTask.TaskSnapshot> uploadProfilePicture(Uri picUri) {
         Task<UploadTask.TaskSnapshot> tasks = null;
         tasks = userPicRef.child(Auth.getUserId() + System.currentTimeMillis()).putFile(picUri);

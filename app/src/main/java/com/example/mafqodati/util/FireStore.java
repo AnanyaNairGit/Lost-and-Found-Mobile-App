@@ -24,6 +24,13 @@ public class FireStore {
     public static CollectionReference postRef() {
       return  getFirestoreInstance().collection("posts");
     }
+    public static CollectionReference usersRef() {
+      return  getFirestoreInstance().collection("users");
+    }
+
+    public static Task<Void> updateUser(String userId , User user) {
+        return usersRef().document(userId).set(user);
+    }
 
     public static Task<Void> writeNewUser(String userId, User newUser) {
         return getFirestoreInstance().collection("users").document(userId).set(newUser);
