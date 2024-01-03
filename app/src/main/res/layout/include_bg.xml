@@ -38,15 +38,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:layout_width="270dp"
-        android:layout_height="270dp"
-        android:src="@drawable/cricle_primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.212"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

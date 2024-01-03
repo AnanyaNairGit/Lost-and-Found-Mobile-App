@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     public void loginOnClick(View view) {
         String email = String.valueOf(((EditText) findViewById(R.id.etEmail)).getText());
         String password = String.valueOf(((EditText) findViewById(R.id.etPassword)).getText());
+
         try {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener(
@@ -37,7 +38,9 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onSuccess(AuthResult authResult) {
                                     // SUCCESS login
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
+                                    finishAndRemoveTask();
                                 }
                             }
                     ).addOnFailureListener(new OnFailureListener() {

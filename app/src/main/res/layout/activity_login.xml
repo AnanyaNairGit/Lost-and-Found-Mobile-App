@@ -8,20 +8,20 @@
 
 
     <include
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/include"
         layout="@layout/include_bg"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
+        android:id="@+id/textView6"
         style="@style/TextTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintEnd_toEndOf="@+id/etEmail"
-        app:layout_constraintStart_toStartOf="@+id/etEmail" />
+        app:layout_constraintStart_toStartOf="@+id/etEmail"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <EditText
         android:id="@+id/etEmail"
@@ -29,16 +29,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="296dp"
-        android:drawableStart="@drawable/ic_lock"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:drawableStart="@drawable/ic_lock"
         android:ems="10"
         android:hint="example@example.com"
-        android:text="user123@gmail.com"
         android:inputType="textEmailAddress"
+        android:text="user123@gmail.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -89,4 +89,15 @@
         android:text="register now"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        app:srcCompat="@drawable/undraw_login" />
 </androidx.constraintlayout.widget.ConstraintLayout>

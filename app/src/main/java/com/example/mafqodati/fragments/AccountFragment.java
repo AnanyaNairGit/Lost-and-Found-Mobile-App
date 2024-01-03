@@ -7,12 +7,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.example.mafqodati.R;
 import com.example.mafqodati.activities.LoginActivity;
 import com.example.mafqodati.databinding.FragmentAccountBinding;
 import com.example.mafqodati.models.User;
@@ -54,6 +56,15 @@ public class AccountFragment extends Fragment {
                         .setNegativeButton("No", null)
                         .show();
 
+            }
+        });
+        binding.btnMyPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, new MyPostFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
         return binding.getRoot();

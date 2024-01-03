@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity{
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
@@ -60,13 +60,5 @@ public class MainActivity extends AppCompatActivity{
         startActivity(new Intent(this , CreatePostActivity.class));
     }
 
-    @Override
-    public void onBackPressed() {
-        replaceFragment(new MainFragment());
 
-        // Handle the back button press
-        // For example, you can perform some specific actions or navigate to a different activity/fragment.
-        // If you want to keep the default behavior (e.g., finishing the current activity), call super.onBackPressed().
-        super.onBackPressed();
-    }
 }
