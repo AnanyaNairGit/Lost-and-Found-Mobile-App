@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.mafqodati.R;
+import com.example.mafqodati.activities.EditProfileActivity;
 import com.example.mafqodati.activities.LoginActivity;
 import com.example.mafqodati.databinding.FragmentAccountBinding;
 import com.example.mafqodati.models.User;
@@ -56,6 +57,14 @@ public class AccountFragment extends Fragment {
                         .setNegativeButton("No", null)
                         .show();
 
+            }
+        });
+        binding.btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                // Start the new Activity
+                startActivity(intent);
             }
         });
         binding.btnMyPost.setOnClickListener(new View.OnClickListener() {

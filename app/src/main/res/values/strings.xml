@@ -77,6 +77,10 @@
     <string name="we_will_send_you_an_one_time_password_on_this_mobile_number">We will send you an One Time Password on this mobile number</string>
     <string name="_continue">Continue</string>
     <string name="chats_will_be_added_soon">Chats Will Be Added Soon</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="user_name">Username</string>
+    <string name="update_profile_picture">Update Profile Picture</string>
+    <string name="save">Save</string>
 
 
 </resources>
