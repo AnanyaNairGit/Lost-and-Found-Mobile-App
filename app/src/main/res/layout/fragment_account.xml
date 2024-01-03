@@ -216,13 +216,13 @@
                     android:src="@drawable/ic_post" />
 
                 <TextView
+                    android:id="@+id/txtPostCount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
                     android:layout_weight="11"
                     android:text="(45) Post"
-
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -247,7 +247,7 @@
         app:layout_constraintTop_toBottomOf="@+id/frameLayout5" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnSignout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

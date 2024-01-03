@@ -1,4 +1,4 @@
-package com.example.mafqodati;
+package com.example.mafqodati.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.mafqodati.R;
 import com.example.mafqodati.databinding.ActivityMainBinding;
 import com.example.mafqodati.fragments.AccountFragment;
 import com.example.mafqodati.fragments.ChatsFragment;
@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity{
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
@@ -58,4 +60,13 @@ public class MainActivity extends AppCompatActivity{
         startActivity(new Intent(this , CreatePostActivity.class));
     }
 
+    @Override
+    public void onBackPressed() {
+        replaceFragment(new MainFragment());
+
+        // Handle the back button press
+        // For example, you can perform some specific actions or navigate to a different activity/fragment.
+        // If you want to keep the default behavior (e.g., finishing the current activity), call super.onBackPressed().
+        super.onBackPressed();
+    }
 }

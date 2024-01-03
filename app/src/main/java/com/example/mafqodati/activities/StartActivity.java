@@ -1,17 +1,12 @@
-package com.example.mafqodati;
+package com.example.mafqodati.activities;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.mafqodati.util.FireStore;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.example.mafqodati.R;
 
 public class StartActivity extends AppCompatActivity {
 

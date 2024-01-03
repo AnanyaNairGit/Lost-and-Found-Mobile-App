@@ -1,4 +1,4 @@
-package com.example.mafqodati;
+package com.example.mafqodati.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,7 +67,7 @@ public class ViewPostActivity extends AppCompatActivity {
         binding.btnNavigate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse("geo:"+post.getLatitude()+"," + post.getLongitude());
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + post.getLatitude()+"," + post.getLongitude()+"&mode=d");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);

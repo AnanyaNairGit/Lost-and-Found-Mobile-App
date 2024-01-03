@@ -1,26 +1,14 @@
-package com.example.mafqodati;
+package com.example.mafqodati.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.mafqodati.databinding.ActivityRegistrationBinding;
 import com.example.mafqodati.models.User;
-import com.example.mafqodati.util.Auth;
 import com.example.mafqodati.util.Constants;
-import com.example.mafqodati.util.FireStore;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
-
-import java.util.concurrent.TimeUnit;
 
 public class RegistrationActivity extends AppCompatActivity {
 

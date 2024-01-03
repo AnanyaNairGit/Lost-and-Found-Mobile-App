@@ -1,40 +1,28 @@
 package com.example.mafqodati.fragments;
 
 
-import static com.example.mafqodati.util.Auth.getUserId;
-
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
-import com.example.mafqodati.FilterActivity;
+import com.example.mafqodati.activities.FilterActivity;
 import com.example.mafqodati.R;
-import com.example.mafqodati.ViewPostActivity;
-import com.example.mafqodati.adapters.RecyclerMyPostAdapter;
+import com.example.mafqodati.activities.ViewPostActivity;
 import com.example.mafqodati.adapters.RecyclerPostAdapter;
 import com.example.mafqodati.databinding.FragmentMainBinding;
 import com.example.mafqodati.models.Post;
 import com.example.mafqodati.util.FireStore;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.chip.Chip;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
-import java.util.Random;
 
 
 public class MainFragment extends Fragment {
@@ -62,50 +50,6 @@ public class MainFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void fillToDb() {
-        String[] categories = getResources().getStringArray(R.array.lost_found_categories);
-        String[] types = getResources().getStringArray(R.array.type);
-        String[] cities = getResources().getStringArray(R.array.jordan_cities);
-        for (String category : categories) {
-            for (String type : types) {
-                for (String city : cities) {
-                    Post.destruct();
-                    Post post = Post.getInstance();
-                    post.setType(type);
-                    post.setCategory(category);
-                    post.setCity(city);
-                    post.setTitle(generateRandomString());
-                    post.setDescription(generateRandomString());
-                    post.setLatitude(0.6);
-                    post.setLongitude(31.7);
-                    post.setWriterId(getUserId());
-                    post.setFinished(false);
-                    post.setCreationDate(System.currentTimeMillis());
-                    FireStore.writeNewPost(post);
-                }
-            }
-        }
-    }
-
-    public String generateRandomString() {
-        // Define the characters allowed in the random string
-        String allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        // Create an instance of Random
-        Random random = new Random();
-
-        // Generate a random length between 3 and 20
-        int length = random.nextInt(18) + 3; // Generates a random integer between 3 and 20
-
-        // Generate the random string
-        StringBuilder randomString = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int index = random.nextInt(allowedCharacters.length());
-            randomString.append(allowedCharacters.charAt(index));
-        }
-
-        return randomString.toString();
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

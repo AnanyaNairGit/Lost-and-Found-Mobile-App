@@ -7,17 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mafqodati.R;
-import com.example.mafqodati.ViewPostActivity;
+import com.example.mafqodati.activities.ViewPostActivity;
 import com.example.mafqodati.adapters.RecyclerMyPostAdapter;
-import com.example.mafqodati.adapters.RecyclerPostAdapter;
 import com.example.mafqodati.databinding.FragmentMyPostBinding;
 import com.example.mafqodati.models.Post;
 import com.example.mafqodati.util.FireStore;
@@ -26,13 +23,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MyPostFragment extends Fragment {
     FragmentMyPostBinding binding;
     private RecyclerMyPostAdapter recyclerMyPostAdapter;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -81,7 +76,7 @@ public class MyPostFragment extends Fragment {
 
     private void fillMyPostRecycler() {
         FirestoreRecyclerOptions<Post> postOptions = new FirestoreRecyclerOptions.Builder<Post>()
-                .setQuery(db.collection("posts").whereEqualTo("writerId", mAuth.getCurrentUser().getUid()), Post.class)
+                .setQuery(FireStore.postRef().whereEqualTo("writerId", mAuth.getCurrentUser().getUid()), Post.class)
                 .build();
         recyclerMyPostAdapter = new RecyclerMyPostAdapter(postOptions, onItemClickListener , onDeleteClickListener);
         binding.recyclerMyPost.setLayoutManager(new LinearLayoutManager(getContext()));

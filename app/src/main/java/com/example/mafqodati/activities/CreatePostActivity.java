@@ -1,4 +1,4 @@
-package com.example.mafqodati;
+package com.example.mafqodati.activities;
 
 import static com.example.mafqodati.util.Auth.getUserId;
 
@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
@@ -23,6 +22,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.example.mafqodati.R;
 import com.example.mafqodati.adapters.RecyclerImageFromGalleryAdapter;
 import com.example.mafqodati.databinding.ActivityCreatePostBinding;
 import com.example.mafqodati.models.Post;

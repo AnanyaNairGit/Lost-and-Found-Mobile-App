@@ -1,4 +1,4 @@
-package com.example.mafqodati;
+package com.example.mafqodati.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import com.example.mafqodati.R;
 import com.example.mafqodati.adapters.RecyclerImageFromGalleryAdapter;
 import com.example.mafqodati.databinding.ActivityFilterBinding;
 

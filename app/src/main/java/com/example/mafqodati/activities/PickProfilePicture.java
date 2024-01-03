@@ -1,8 +1,7 @@
-package com.example.mafqodati;
+package com.example.mafqodati.activities;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -20,14 +19,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.mafqodati.models.Post;
+import com.example.mafqodati.R;
 import com.example.mafqodati.models.User;
 import com.example.mafqodati.util.Auth;
 import com.example.mafqodati.util.FireStorage;
 import com.example.mafqodati.util.FireStore;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.storage.UploadTask;
 
