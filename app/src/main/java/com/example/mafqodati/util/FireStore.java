@@ -32,8 +32,8 @@ public class FireStore {
         return usersRef().document(userId).set(user);
     }
 
-    public static Task<Void> writeNewUser(String userId, User newUser) {
-        return getFirestoreInstance().collection("users").document(userId).set(newUser);
+    public static Task<Void> writeNewUser(String userId) {
+        return getFirestoreInstance().collection("users").document(userId).set(User.getInstance());
     }
 
     public static Task<Void> updateUserPicture(String userId, String newUri) {
@@ -134,29 +134,7 @@ public class FireStore {
     }
 
 
-    public static Task<QuerySnapshot> getUnfinishedPost(int postType) {
-        if (postType == 0) {
-            return getFirestoreInstance().collection("posts")
-                    .whereEqualTo("finished", false).get();
-        } else {
-            return getFirestoreInstance().collection("posts")
-                    .whereEqualTo("type", postType)
-                    .whereEqualTo("finished", false).get();
-        }
-    }
 
-    public static Task<QuerySnapshot> getUnfinishedBuildingPost(int postType, int buildingNum) {
-        if (postType == 0) {
-            return getFirestoreInstance().collection("posts")
-                    .whereEqualTo("summaryBuildingType", buildingNum)
-                    .whereEqualTo("finished", false).get();
-        } else {
-            return getFirestoreInstance().collection("posts")
-                    .whereEqualTo("summaryBuildingType", buildingNum)
-                    .whereEqualTo("type", postType)
-                    .whereEqualTo("finished", false).get();
-        }
-    }
 
     public static Query getMyChatRoom(String userId) {
         return getFirestoreInstance().collection("chatRoom").whereArrayContains("chatUserId", userId);

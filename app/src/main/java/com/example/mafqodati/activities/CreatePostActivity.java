@@ -90,6 +90,7 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
 
+
     ActivityResultLauncher<Intent> pickMedia =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {

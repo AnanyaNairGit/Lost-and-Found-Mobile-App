@@ -101,7 +101,7 @@ public class PickLocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pick_location);
         mapView = findViewById(R.id.mapView);
         btnFocusLocation = findViewById(R.id.btnFocusLocation);
-        btnContinue = findViewById(R.id.btnContinue);
+        btnContinue = findViewById(R.id.btnUpdate);
         btnContinue.setOnClickListener(v -> {
             progressDialog = new ProgressDialog(PickLocationActivity.this);
             progressDialog.setMessage("Loading...");

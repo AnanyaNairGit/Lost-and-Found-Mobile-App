@@ -64,7 +64,8 @@ public class PickProfilePicture extends AppCompatActivity {
             progressDialog.setMessage("Loading...");
             progressDialog.show();
 
-            Auth.createUser(User.getInstance().getUserEmail(), getIntent().getStringExtra("PASSWORD")).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            Auth.createUser(User.getInstance().getUserEmail(), getIntent().getStringExtra("PASSWORD"))
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
 
@@ -77,13 +78,14 @@ public class PickProfilePicture extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Uri uri) {
                                             User.getInstance().setUserProfileImgURL(String.valueOf(uri));
-                                            FireStore.writeNewUser(authResult.getUser().getUid(), User.getInstance())
+                                            FireStore.writeNewUser(authResult.getUser().getUid())
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void unused) {
                                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                             startActivity(intent);
+                                                            progressDialog.dismiss();
                                                         }
                                                     });
                                         }

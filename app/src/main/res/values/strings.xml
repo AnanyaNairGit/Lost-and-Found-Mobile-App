@@ -81,6 +81,7 @@
     <string name="user_name">Username</string>
     <string name="update_profile_picture">Update Profile Picture</string>
     <string name="save">Save</string>
+    <string name="edit_post">Edit Post</string>
 
 
 </resources>

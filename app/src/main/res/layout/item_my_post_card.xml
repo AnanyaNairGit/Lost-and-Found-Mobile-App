@@ -130,7 +130,17 @@
                 android:text="@string/delete"
                 android:textSize="16sp"
                 app:icon="@drawable/baseline_cancel_24" />
-
+            <Button
+                android:id="@+id/btnEditPost"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:paddingVertical="16dp"
+                android:text="@string/edit_post"
+                android:textSize="16sp"
+                app:icon="@drawable/baseline_mode_edit_outline_24" />
         </LinearLayout>
     </LinearLayout>
 

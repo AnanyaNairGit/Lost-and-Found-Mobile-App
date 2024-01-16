@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#F4F4F4"
     android:layout_height="match_parent"
-    tools:context=".activities.CreatePostActivity">
+    tools:context=".EditPostActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/primary_dark"
                     android:paddingVertical="10dp"
-                    android:text="Create a new post"
+                    android:text="Edit post"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
@@ -58,12 +58,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/btnPickImages"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/add_image" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerImagesFromGallery"
@@ -185,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:onClick="toPickLocation"
-            android:text="Continue"
+            android:text="Update"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -32,8 +32,14 @@ public class RecyclerMyPostAdapter extends FirestoreRecyclerAdapter<Post, Recycl
         void onDeleteClick(String postId);
     }
 
+    public interface OnUpdateClickListener {
+        void onUpdateClick(String postId);
+
+    }
+
     private OnItemClickListener onItemClickListener;
     private OnDeleteClickListener onDeleteClickListener;
+    private OnUpdateClickListener onUpdateClickListener;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.
@@ -41,11 +47,20 @@ public class RecyclerMyPostAdapter extends FirestoreRecyclerAdapter<Post, Recycl
      * @param options
      */
 
-    public RecyclerMyPostAdapter(@NonNull FirestoreRecyclerOptions<Post> options, OnItemClickListener onItemClickListener, OnDeleteClickListener onDeleteClickListener) {
+    public RecyclerMyPostAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {
         super(options);
-        this.onItemClickListener = onItemClickListener;
-        this.onDeleteClickListener = onDeleteClickListener;
+    }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener) {
+        this.onDeleteClickListener = onDeleteClickListener;
+    }
+
+    public void setOnUpdateClickListener(OnUpdateClickListener onUpdateClickListener) {
+        this.onUpdateClickListener = onUpdateClickListener;
     }
 
     @Override
@@ -57,7 +72,7 @@ public class RecyclerMyPostAdapter extends FirestoreRecyclerAdapter<Post, Recycl
         holder.txtImgCount.setText(String.valueOf(model.getImagesUri().size()));
         holder.chpCity.setText(model.getCity());
         holder.chpType.setText(model.getType());
-        if(model.getImagesUri().size()>0){
+        if (model.getImagesUri().size() > 0) {
             Glide.with(holder.itemView.getContext())
                     .load(model.getImagesUri().get(0))
                     .apply(RequestOptions.formatOf(DecodeFormat.PREFER_ARGB_8888))
@@ -88,6 +103,7 @@ public class RecyclerMyPostAdapter extends FirestoreRecyclerAdapter<Post, Recycl
         TextView txtImgCount;
         ImageView imgPostImage;
         Button btnDelete;
+        Button btnEditPost;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,6 +117,7 @@ public class RecyclerMyPostAdapter extends FirestoreRecyclerAdapter<Post, Recycl
             imgPostImage = itemView.findViewById(R.id.imgPostMain);
             txtImgCount = itemView.findViewById(R.id.txtImgCount);
             btnDelete = itemView.findViewById(R.id.btnDelete);
+            btnEditPost = itemView.findViewById(R.id.btnEditPost);
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -120,6 +137,14 @@ public class RecyclerMyPostAdapter extends FirestoreRecyclerAdapter<Post, Recycl
                 }
             });
 
+            btnEditPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(onUpdateClickListener != null){
+                        onUpdateClickListener.onUpdateClick(getSnapshots().getSnapshot(getAdapterPosition()).getId());
+                    }
+                }
+            });
 
         }
     }

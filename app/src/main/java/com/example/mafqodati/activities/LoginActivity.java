@@ -3,6 +3,7 @@ package com.example.mafqodati.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mafqodati.R;
+import com.example.mafqodati.util.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -30,7 +32,16 @@ public class LoginActivity extends AppCompatActivity {
         String email = String.valueOf(((EditText) findViewById(R.id.etEmail)).getText());
         String password = String.valueOf(((EditText) findViewById(R.id.etPassword)).getText());
 
+        if (!Constants.isValidEmail(email)){
+            ((EditText) findViewById(R.id.etEmail)).setError("Enter valid email");
+            ((EditText) findViewById(R.id.etEmail)).requestFocus();
+            return;
+        }
         try {
+            ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener(
                             new OnSuccessListener<AuthResult>() {
@@ -41,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                     finishAndRemoveTask();
+                                    progressDialog.dismiss();
                                 }
                             }
                     ).addOnFailureListener(new OnFailureListener() {

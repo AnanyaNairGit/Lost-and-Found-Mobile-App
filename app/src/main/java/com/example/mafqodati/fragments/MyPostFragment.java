@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mafqodati.EditPostActivity;
 import com.example.mafqodati.activities.ViewPostActivity;
 import com.example.mafqodati.adapters.RecyclerMyPostAdapter;
 import com.example.mafqodati.databinding.FragmentMyPostBinding;
@@ -34,16 +35,12 @@ public class MyPostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentMyPostBinding.inflate(inflater, container, false);
-
         fillMyPostRecycler();
-
-
         return binding.getRoot();
     }
 
 
     RecyclerMyPostAdapter.OnDeleteClickListener onDeleteClickListener = postId -> {
-        Log.v("LOG_ON_ITEM" , postId);
         new MaterialAlertDialogBuilder(getActivity())
                 .setTitle("Deleted Item")
                 .setCancelable(false)
@@ -74,11 +71,23 @@ public class MyPostFragment extends Fragment {
 
     };
 
+    RecyclerMyPostAdapter.OnUpdateClickListener onUpdateClickListener = postId -> {
+        Intent intent = new Intent(getActivity(), EditPostActivity.class);
+
+        // Put extra data (replace "yourKey" and "yourData" with appropriate key and data)
+        intent.putExtra("POST_ID", postId);
+
+        // Start the activity
+        startActivity(intent);
+    };
     private void fillMyPostRecycler() {
         FirestoreRecyclerOptions<Post> postOptions = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(FireStore.postRef().whereEqualTo("writerId", mAuth.getCurrentUser().getUid()), Post.class)
                 .build();
-        recyclerMyPostAdapter = new RecyclerMyPostAdapter(postOptions, onItemClickListener , onDeleteClickListener);
+        recyclerMyPostAdapter = new RecyclerMyPostAdapter(postOptions);
+        recyclerMyPostAdapter.setOnItemClickListener(onItemClickListener);
+        recyclerMyPostAdapter.setOnDeleteClickListener(onDeleteClickListener);
+        recyclerMyPostAdapter.setOnUpdateClickListener(onUpdateClickListener);
         binding.recyclerMyPost.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerMyPost.setAdapter(recyclerMyPostAdapter);
         recyclerMyPostAdapter.startListening();
