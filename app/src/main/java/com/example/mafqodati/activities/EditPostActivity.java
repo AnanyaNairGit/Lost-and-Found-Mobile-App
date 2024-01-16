@@ -1,28 +1,20 @@
-package com.example.mafqodati;
+package com.example.mafqodati.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.PlatformVpnProfile;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.util.Util;
-import com.example.mafqodati.activities.LoginActivity;
-import com.example.mafqodati.adapters.RecyclerImageFromGalleryAdapter;
+import com.example.mafqodati.R;
 import com.example.mafqodati.adapters.RecyclerUpdateImagesAdapter;
-import com.example.mafqodati.adapters.RecyclerViewPostImagesAdapter;
 import com.example.mafqodati.databinding.ActivityEditPostBinding;
-import com.example.mafqodati.databinding.ActivityEditProfileBinding;
 import com.example.mafqodati.models.Post;
-import com.example.mafqodati.models.User;
 import com.example.mafqodati.util.FireStore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EditPostActivity extends AppCompatActivity {
     ActivityEditPostBinding binding;

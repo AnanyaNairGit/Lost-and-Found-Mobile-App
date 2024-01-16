@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#F4F4F4"
     android:layout_height="match_parent"
-    tools:context=".EditPostActivity">
+    tools:context=".activities.EditPostActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -60,6 +60,7 @@ public class MainFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
 
                 if (data != null) {
+                    binding.filterContainer.setVisibility(View.GONE);
                     filterData = data;
                     fillRecyclerList();
                 }
@@ -125,7 +126,7 @@ public class MainFragment extends Fragment {
                 query = query.whereEqualTo("category", category);
             }
 
-            query = query.orderBy("orderBy", Query.Direction.DESCENDING);
+            //query = query.orderBy("orderBy", Query.Direction.DESCENDING);
             Chip chip = new Chip(getActivity());
             chip.setText("Clear");
             chip.setClickable(true);
@@ -138,6 +139,8 @@ public class MainFragment extends Fragment {
                     filterData = null;
                     fillRecyclerList();
                     binding.chipGroup.removeAllViews();
+                    binding.filterContainer.setVisibility(View.VISIBLE);
+
                 }
             });
         }
