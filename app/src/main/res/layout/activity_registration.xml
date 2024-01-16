@@ -117,6 +117,7 @@
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="Password" />
 
         <TextView
@@ -131,6 +132,7 @@
             android:id="@+id/erConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="Confirm Password" />
 
         <Button
