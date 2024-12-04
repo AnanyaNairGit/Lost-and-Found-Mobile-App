@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">mafqodati</string>
+    <string name="app_name">Lost and Found App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mapbox_access_token" translatable="false" tools:ignore="UnusedResources">sk.eyJ1IjoiemV5YWRraCIsImEiOiJjbHFncmp2MjUwZDNzMmpvMHFobzFyN2M3In0.Cpw0s7GBrLHMrXg91Ia5xw</string>
@@ -11,17 +11,14 @@
     <string name="type">Type</string>
     <string name="delete">Delete</string>
     <string-array name="jordan_cities">
-        <item>Amman</item>
-        <item>Irbid</item>
-        <item>Zarqa</item>
-        <item>Jerash</item>
-        <item>Ajloun</item>
-        <item>Mafraq</item>
-        <item>Madaba</item>
-        <item>Karak</item>
-        <item>Tafilah</item>
-        <item>Maan</item>
-        <item>Aqaba</item>
+        <item>Trivandrum</item>
+        <item>Kollam</item>
+        <item>Alappuzha</item>
+        <item>Pathanamthitta</item>
+        <item>Ernakulam</item>
+        <item>Thrissur</item>
+        <item>Wayanad</item>
+
     </string-array>
 
     <string-array name="lost_found_categories">

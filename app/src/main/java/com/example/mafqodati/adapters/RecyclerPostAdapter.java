@@ -118,3 +118,4 @@ public class RecyclerPostAdapter extends FirestoreRecyclerAdapter<Post, Recycler
         }
     }
 }
+

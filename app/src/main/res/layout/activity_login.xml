@@ -86,7 +86,7 @@
         android:textColor="@color/primary"
         android:onClick="toRegistration"
         android:textStyle="bold"
-        android:text="register now"
+        android:text="Register now"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 

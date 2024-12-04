@@ -104,7 +104,7 @@
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_marginTop="16dp"
             app:icon="@drawable/baseline_cancel_24"
-            android:text="Clear feilds"/>
+            android:text="Clear fields"/>
         <Button
             android:id="@+id/btnFilter"
             android:layout_width="match_parent"
